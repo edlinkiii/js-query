@@ -9,12 +9,12 @@ HTMLElement.prototype.parent = function() { return this.parentElement; }
 HTMLElement.prototype.children = function() { return this.childNodes; }
 
 HTMLElement.prototype.hide = function() { this.style.display = 'none'; return this; }
-HTMLElement.prototype.show = function(type = 'block') { this.style.display = type; return this; }
-HTMLElement.prototype.toggle = function(type = 'block') { this.style.display = (this.style.display !== 'none') ? 'none' : type ; return this; }
+HTMLElement.prototype.show = function() { this.style.display = ''; return this; }
+HTMLElement.prototype.toggle = function() { this.style.display = (this.style.display !== 'none') ? 'none' : '' ; return this; }
 
 NodeList.prototype.hide = function() { this.forEach((n) => n.style.display = 'none'); return this; }
-NodeList.prototype.show = function(type = 'block') { this.forEach((n) => n.style.display = type); return this; }
-NodeList.prototype.toggle = function(type = 'block') { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : type ); return this; }
+NodeList.prototype.show = function() { this.forEach((n) => n.style.display = ''); return this; }
+NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : '' ); return this; }
 
 HTMLElement.prototype.text = function(textString) { if(textString !== undefined) { this.textContent = textString; return this; } else return this.textContent; }
 HTMLElement.prototype.html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
