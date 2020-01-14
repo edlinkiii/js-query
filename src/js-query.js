@@ -19,6 +19,7 @@ HTMLElement.prototype.append = function(string) { if(string === undefined) retur
 
 HTMLElement.prototype.addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
+HTMLElement.prototype.toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
 HTMLElement.prototype.hasClass = function(thisClass) { this.classList.contains(thisClass); return this; }
 
 HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } else return this.value; }
