@@ -12,6 +12,10 @@ HTMLElement.prototype.hide = function() { this.style.display = 'none'; return th
 HTMLElement.prototype.show = function(type = 'block') { this.style.display = type; return this; }
 HTMLElement.prototype.toggle = function(type = 'block') { this.style.display = (this.style.display !== 'none') ? 'none' : type ; return this; }
 
+NodeList.prototype.hide = function() { this.forEach((n) => n.style.display = 'none'); return this; }
+NodeList.prototype.show = function(type = 'block') { this.forEach((n) => n.style.display = type); return this; }
+NodeList.prototype.toggle = function(type = 'block') { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : type ); return this; }
+
 HTMLElement.prototype.text = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
 HTMLElement.prototype.html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
 HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; else { this.innerHTML = string + this.innerHTML; return this; } }
@@ -21,6 +25,11 @@ HTMLElement.prototype.addClass = function(newClass) { this.classList.add(newClas
 HTMLElement.prototype.removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
 HTMLElement.prototype.toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
 HTMLElement.prototype.hasClass = function(thisClass) { this.classList.contains(thisClass); return this; }
+
+NodeList.prototype.addClass = function(newClass) { this.forEach((n) => n.classList.add(newClass)); return this; }
+NodeList.prototype.removeClass = function(oldClass) { this.forEach((n) => n.classList.remove(oldClass)); return this; }
+NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.classList.toggle(thisClass)); return this; }
+NodeList.prototype.hasClass = function(thisClass) { this.forEach((n) => n.classList.contains(thisClass)); return this; }
 
 HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } else return this.value; }
 HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } else return this.dataset[key]; }
