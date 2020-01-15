@@ -96,7 +96,7 @@ const ajax = (options) => {
     return fetch(opt.url, ajaxOptions)
         .then((res) => {
             if(!res.ok || res.status !== 200) {
-                throw res.statusText;
+                throw "["+ res.status +": "+ res.statusText +"] "+ opt.url;
             } else {
                 return res.json();
             }
