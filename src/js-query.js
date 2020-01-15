@@ -18,6 +18,7 @@ NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (
 
 HTMLElement.prototype.text = function(textString) { if(textString !== undefined) { this.textContent = textString; return this; } else return this.textContent; }
 HTMLElement.prototype.html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
+HTMLElement.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
 HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; else { this.innerHTML = string + this.innerHTML; return this; } }
 HTMLElement.prototype.append = function(string) { if(string === undefined) return; else { this.innerHTML = this.innerHTML + string; return this; } }
 
