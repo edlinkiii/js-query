@@ -36,7 +36,7 @@ HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { th
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
-EventTarget.prototype.click = function() { return this.dispatchEvent(new Event('click', { 'bubbles': true })); }
+// HTMLElement.click() // -- ALREADY EXISTS
 // HTMLElement.focus() // -- ALREADY EXISTS
 // HTMLElement.blur() // -- ALREADY EXISTS
 
