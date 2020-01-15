@@ -1,5 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
+const clickHandler = ({target}) => {
+    if(target.matches('li')) {
+        target.removeClass('red').addClass('blue').toggleClass('bold');
+    }
+}
 
+document.addEventListener('DOMContentLoaded', () => {
     $q('#stuff').hide();
 
     $q('#place').html($q('p').parent().html()).find('p').prepend('stuff & ').append(' and some junk!').addClass('bold');
@@ -8,13 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $q('#type-it').val($q('#select-it').val());
 
-    $qa('ul li').forEach((li) => li.addEventListener('click', ({target}) => target.removeClass('red').addClass('blue').toggleClass('bold')));
-
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').val()));
 
-    setTimeout(() => {
-        $q('ul').append('<li>sixth</li>');
-    }, 1000);
-});
+    $q('ul').on('click', clickHandler);
 
-$q(document).on('click', 'li', (e) => console.log(e));
+    setTimeout(() => { // remove listener after 10 seconds to prove it works...
+        $q('ul').off('click', clickHandler);
+    }, (10 * 1000));
+});

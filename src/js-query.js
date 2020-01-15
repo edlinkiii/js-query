@@ -40,11 +40,10 @@ EventTarget.prototype.click = function() { return this.dispatchEvent(new Event('
 // HTMLElement.focus() // -- ALREADY EXISTS
 // HTMLElement.blur() // -- ALREADY EXISTS
 
-HTMLDocument.prototype.on = function(event, targetSelector, func) {
-    this.addEventListener(event, (e) => {
-        if(e.target && e.target.matches(targetSelector)) func(e);
-    });
-};
+HTMLDocument.prototype.on = function(event, handler) { this.addEventListener(event, handler); };
+HTMLDocument.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
+HTMLElement.prototype.on = function(event, handler) { this.addEventListener(event, handler); };
+HTMLElement.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
 
 const ajax = (options) => {
     const defaults = {
