@@ -40,10 +40,33 @@ EventTarget.prototype.click = function() { return this.dispatchEvent(new Event('
 // HTMLElement.focus() // -- ALREADY EXISTS
 // HTMLElement.blur() // -- ALREADY EXISTS
 
-HTMLDocument.prototype.on = function(event, handler) { this.addEventListener(event, handler); };
-HTMLDocument.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
-HTMLElement.prototype.on = function(event, handler) { this.addEventListener(event, handler); };
-HTMLElement.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
+// HTMLDocument.prototype.on = function(event, handler) { this.addEventListener(event, handler); };
+// HTMLDocument.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
+// HTMLElement.prototype.on = function(event, handler) { this.addEventListener(event, handler); };
+// HTMLElement.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
+
+function eventHandler(e) {
+    for(let t in this.__events[e.type]) {
+        if(e.target.matches(t)) this.__events[e.type][t](e);
+    }
+}
+
+HTMLElement.prototype.on = function(event, selector, func) {
+    if(!this.__events) this.__events = {};
+    if(!this.__events[event]) this.__events[event] = {};
+    if(!this.__events[event][selector]) this.__events[event][selector] = func;
+    this.addEventListener(event, eventHandler);
+};
+HTMLElement.prototype.off = function(event, selector) {
+    if(this.__events) {
+        if(this.__events[event]) {
+            if(this.__events[event][selector]) {
+                delete this.__events[event][selector];
+            }
+        }
+    }
+    this.removeEventListener(event, eventHandler);
+};
 
 const ajax = (options) => {
     const defaults = {

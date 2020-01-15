@@ -1,9 +1,3 @@
-const clickHandler = ({target}) => {
-    if(target.matches('li')) {
-        target.removeClass('red').addClass('blue').toggleClass('bold');
-    }
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     $q('#stuff').hide();
 
@@ -14,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
     $q('#type-it').val($q('#select-it').val());
 
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').val()));
-
-    $q('ul').on('click', clickHandler);
-
-    setTimeout(() => { // remove listener after 10 seconds to prove it works...
-        $q('ul').off('click', clickHandler);
-    }, (10 * 1000));
 });
+
+$q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
+
+setTimeout(() => {
+    $q('ul').off('click', 'li');
+}, 10000);
