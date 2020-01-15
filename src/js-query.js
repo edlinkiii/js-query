@@ -69,20 +69,10 @@ HTMLDocument.prototype.off = function(event, selector) {
 };
 
 HTMLElement.prototype.on = function(event, selector, func) {
-    if(!this.__events) this.__events = {};
-    if(!this.__events[event]) this.__events[event] = {};
-    if(!this.__events[event][selector]) this.__events[event][selector] = func;
-    this.addEventListener(event, eventHandler);
+    HTMLDocument.prototype.on.apply(this, [].slice.call(arguments));
 };
 HTMLElement.prototype.off = function(event, selector) {
-    if(this.__events) {
-        if(this.__events[event]) {
-            if(this.__events[event][selector]) {
-                delete this.__events[event][selector];
-            }
-        }
-    }
-    this.removeEventListener(event, eventHandler);
+    HTMLDocument.prototype.off.apply(this, [].slice.call(arguments));
 };
 
 const ajax = (options) => {
