@@ -12,4 +12,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').val()));
 
+    setTimeout(() => {
+        $q('ul').append('<li>sixth</li>');
+    }, 1000);
 });
+
+$q(document).on('click', 'li', (e) => console.log(e));

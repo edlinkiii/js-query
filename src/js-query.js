@@ -1,6 +1,6 @@
 // Vanilla JS helpers -- for recovering jQuery users
 
-const $q = (selector) => document.querySelector(selector);
+const $q = (selector) => (selector === document) ? document : document.querySelector(selector);
 const $qa = (selector) => document.querySelectorAll(selector);
 
 HTMLElement.prototype.find = function(selector) { return this.querySelector(selector); }
@@ -39,6 +39,12 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 EventTarget.prototype.click = function() { return this.dispatchEvent(new Event('click', { 'bubbles': true })); }
 // HTMLElement.focus() // -- ALREADY EXISTS
 // HTMLElement.blur() // -- ALREADY EXISTS
+
+HTMLDocument.prototype.on = function(event, targetSelector, func) {
+    this.addEventListener(event, (e) => {
+        if(e.target && e.target.matches(targetSelector)) func(e);
+    });
+};
 
 const ajax = (options) => {
     const defaults = {
