@@ -16,7 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
 
+// $q(document).on('click','#type-it', (e) => console.log('click', e.target.value));
+// $q(document).on('click','#type-it', (e) => console.log('click(2)', e.target.value));
+// $q(document).on('focus','#type-it', (e) => console.log('focus', e.target.value));
+// $q(document).on('blur','#type-it', (e) => console.log('blur', e.target.value));
+// $q(document).on('change','#type-it', (e) => console.log('change', e.target.value));
+// $q(document).on('input','#type-it', (e) => console.log('input', e.target.value));
+
 setTimeout(() => {
-    console.log('off()');
+    // console.log('off()');
     $q('ul').off('click', 'li');
 }, 5000);
