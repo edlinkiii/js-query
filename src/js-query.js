@@ -47,15 +47,21 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // HTMLElement.prototype.off = function(event, handler) { this.removeEventListener(event, handler); };
 
 function eventHandler(e) {
-    for(let t in this.__events[e.type]) {
-        if(e.target.matches(t)) this.__events[e.type][t](e);
+    for(let selector in this.__events[e.type]) {
+        if(e.target.matches(selector)) {
+            const callbacks = this.__events[e.type][selector];
+            callbacks.forEach(function (callback) {
+             callback.call(e.target, e) // bind 'event.target' to 'this' in callbacks
+            })
+        }
     }
 }
 
 HTMLDocument.prototype.on = function(event, selector, func) {
     if(!this.__events) this.__events = {};
     if(!this.__events[event]) this.__events[event] = {};
-    if(!this.__events[event][selector]) this.__events[event][selector] = func;
+    if(!this.__events[event][selector]) this.__events[event][selector] = [];
+    this.__events[event][selector].push(func);
     this.addEventListener(event, eventHandler);
 };
 HTMLDocument.prototype.off = function(event, selector) {
