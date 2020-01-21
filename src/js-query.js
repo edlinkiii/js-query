@@ -78,31 +78,46 @@ HTMLElement.prototype.off = function(event, selector) {
 };
 
 const ajax = (options) => {
-    const defaults = {
-        url: '/',
-        type: 'GET',
-        headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
-        },
-        data: '',
-        callback: (data) => { console.log(data); },
-        error: (err) => { console.error(err); }
-    }
-    const opt = {...defaults, ...options};
-    if(!opt.url) return false;
-    const ajaxOptions = {};
-    if(opt.headers) ajaxOptions.headers = opt.headers;
-    if(opt.type) ajaxOptions.method = opt.type;
-    if(opt.data) ajaxOptions.body = JSON.stringify(opt.data);
-    return fetch(opt.url, ajaxOptions)
-        .then((res) => {
-            if(!res.ok || res.status !== 200) {
-                throw "["+ res.status +": "+ res.statusText +"] "+ opt.url;
-            } else {
-                return res.json();
+    return new Promise((resolve, reject) => {
+        const defaults = {
+            url: null,
+            type: 'GET',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-type': 'application/json'
+            },
+            data: null,
+            json: true,
+            callback: (data) => { console.log(data); },
+            error: (err) => { console.error(err); }
+        }
+        const opt = {...defaults, ...options};
+        if(!opt.url) {
+            reject(false);
+            return false;
+        }
+        try {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState === 4) {
+                    if (this.status >= 200 && this.status < 300) {
+                        opt.callback((opt.json && this.responseText) ? JSON.parse(this.responseText) : this.responseText);
+                        resolve(true);
+                    }
+                    else {
+                        throw '['+ this.status +': '+ this.statusText +'] '+ this.responseURL +'\n'+ this.responseText;
+                    }
+                }
             }
-        })
-        .then((json) => opt.callback(json))
-        .catch(err => opt.error(err));
+            xhr.open(opt.type, opt.url, true);
+            for(let h in opt.headers) {
+                xhr.setRequestHeader(h, opt.headers[h]);
+            }
+            xhr.send((opt.data) ? ((opt.json) ? JSON.stringify(opt.data) : opt.data) : null);
+        }
+        catch(err) {
+            opt.error(err);
+            reject(false);
+        }
+    });
 }
