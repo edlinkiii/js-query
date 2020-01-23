@@ -8,6 +8,9 @@ HTMLElement.prototype.findAll = function(selector) { return this.querySelectorAl
 HTMLElement.prototype.parent = function() { return this.parentElement; }
 HTMLElement.prototype.children = function() { return this.childNodes; }
 
+HTMLElement.prototype.next = function() { return this.nextElementSibling; }
+HTMLElement.prototype.prev = function() { return this.previousElementSibling; }
+
 HTMLElement.prototype.hide = function() { this.style.display = 'none'; return this; }
 HTMLElement.prototype.show = function() { this.style.display = 'initial'; return this; }
 HTMLElement.prototype.toggle = function() { this.style.display = (this.style.display !== 'none') ? 'none' : '' ; return this; }
@@ -19,6 +22,7 @@ NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (
 HTMLElement.prototype.text = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
 HTMLElement.prototype.html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
 HTMLElement.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
+
 HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; else { this.innerHTML = string + this.innerHTML; return this; } }
 HTMLElement.prototype.append = function(string) { if(string === undefined) return; else { this.innerHTML = this.innerHTML + string; return this; } }
 

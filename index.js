@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $qa('ul li').addClass('red');
 
+    let $secondLi = $qa('ul li')[1];
+
+    let $nextLi = $secondLi.next().addClass('purple');
+
+    let $prevLi = $secondLi.prev().addClass('ital');
+
     $q('#type-it').val($q('#select-it').val());
 
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').val()));
