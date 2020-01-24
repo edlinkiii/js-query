@@ -40,6 +40,9 @@ HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { th
 HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } else return this.getAttribute(key); }
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
 
+HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
+HTMLElement.prototype.offset = function() { return this.getBoundingClientRect(); }
+
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // HTMLElement.click() // -- ALREADY EXISTS
 // HTMLElement.focus() // -- ALREADY EXISTS
