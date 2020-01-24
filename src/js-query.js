@@ -37,7 +37,7 @@ NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.cla
 
 HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } else return this.value; }
 HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } else return this.dataset[key]; }
-HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
+HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } else return this.getAttribute(key); }
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
