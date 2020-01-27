@@ -7,6 +7,7 @@ HTMLElement.prototype.$find = function(selector) { return this.querySelector(sel
 HTMLElement.prototype.$findAll = function(selector) { return this.querySelectorAll(selector); }
 HTMLElement.prototype.$parent = function() { return this.parentElement; }
 HTMLElement.prototype.$children = function() { return this.childNodes; }
+HTMLElement.prototype.$siblings = function() { return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this ); }
 
 HTMLElement.prototype.$next = function() { return this.nextElementSibling; }
 HTMLElement.prototype.$prev = function() { return this.previousElementSibling; }
