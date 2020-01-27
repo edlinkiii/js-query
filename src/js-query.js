@@ -26,6 +26,9 @@ HTMLElement.prototype.$markup = function(htmlString) { if(htmlString !== undefin
 HTMLElement.prototype.$prepend = function(string) { if(string === undefined) return; this.prepend(($_isElement(string)) ? string : $_fakeElement(string)); return this; }
 HTMLElement.prototype.$append = function(string) { if(string === undefined) return; this.append(($_isElement(string)) ? string : $_fakeElement(string)); return this; }
 
+HTMLElement.prototype.$before = function(string) { if(string === undefined) return; this.insertAdjacentElement('beforebegin', ($_isElement(string)) ? string : $_fakeElement(string)); return this; }
+HTMLElement.prototype.$after = function(string) { if(string === undefined) return; this.insertAdjacentElement('afterend', ($_isElement(string)) ? string : $_fakeElement(string)); return this; }
+
 HTMLElement.prototype.$addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.$removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
 HTMLElement.prototype.$toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
