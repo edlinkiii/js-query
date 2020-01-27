@@ -27,11 +27,10 @@ HTMLElement.prototype.$text = function(textString) { if(textString !== undefined
 HTMLElement.prototype.$html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } return this.innerHTML; }
 HTMLElement.prototype.$markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } return this.outerHTML; }
 
-HTMLElement.prototype.$prepend = function(string) { if(string === undefined) return; this.prepend(($_isElement(string)) ? string : $_fakeElement(string)); return this; }
-HTMLElement.prototype.$append = function(string) { if(string === undefined) return; this.append(($_isElement(string)) ? string : $_fakeElement(string)); return this; }
-
-HTMLElement.prototype.$before = function(string) { if(string === undefined) return; this.insertAdjacentElement('beforebegin', ($_isElement(string)) ? string : $_fakeElement(string)); return this; }
-HTMLElement.prototype.$after = function(string) { if(string === undefined) return; this.insertAdjacentElement('afterend', ($_isElement(string)) ? string : $_fakeElement(string)); return this; }
+HTMLElement.prototype.$before = function(string) { if(string === undefined) return; if($_isElement(string)) { this.insertAdjacentElement('beforebegin', string); } else { this.insertAdjacentHTML('beforebegin', string); } return this; }
+HTMLElement.prototype.$prepend = function(string) { if(string === undefined) return; if($_isElement(string)) { this.insertAdjacentElement('afterbegin', string); } else { this.insertAdjacentHTML('afterbegin', string); } return this; }
+HTMLElement.prototype.$append = function(string) { if(string === undefined) return; if($_isElement(string)) { this.insertAdjacentElement('beforeend', string); } else { this.insertAdjacentHTML('beforeend', string); } return this; }
+HTMLElement.prototype.$after = function(string) { if(string === undefined) return; if($_isElement(string)) { this.insertAdjacentElement('afterend', string); } else { this.insertAdjacentHTML('afterend', string); } return this; }
 
 HTMLElement.prototype.$addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.$removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
@@ -57,7 +56,6 @@ HTMLElement.prototype.$focus = function() { this.focus(); return this; }
 HTMLElement.prototype.$blur = function() { this.blur(); return this; }
 
 const $_isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
-const $_fakeElement = (string) => { let el = document.createElement(null); el.innerHTML = string; return el; }
 const $_camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 
 function $_eventHandler(e) {
