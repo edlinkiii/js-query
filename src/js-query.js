@@ -27,8 +27,10 @@ HTMLElement.prototype.text = function(textString) { if(textString !== undefined)
 HTMLElement.prototype.html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
 HTMLElement.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
 
-HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; else { this.innerHTML = string + this.innerHTML; return this; } }
-HTMLElement.prototype.append = function(string) { if(string === undefined) return; else { this.innerHTML = this.innerHTML + string; return this; } }
+HTMLElement.prototype.before = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('beforebegin', string); } else { this.insertAdjacentHTML('beforebegin', string); } return this; }
+HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('afterbegin', string); } else { this.insertAdjacentHTML('afterbegin', string); } return this; }
+HTMLElement.prototype.append = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('beforeend', string); } else { this.insertAdjacentHTML('beforeend', string); } return this; }
+HTMLElement.prototype.after = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('afterend', string); } else { this.insertAdjacentHTML('afterend', string); } return this; }
 
 HTMLElement.prototype.addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
@@ -51,6 +53,8 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // HTMLElement.click() // -- ALREADY EXISTS
 // HTMLElement.focus() // -- ALREADY EXISTS
 // HTMLElement.blur() // -- ALREADY EXISTS
+
+const __isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
 
 function eventHandler(e) {
     for(let selector in this.__events[e.type]) {
