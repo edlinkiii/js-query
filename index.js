@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').$val()));
 
-    $q('ul').$append('<li>wft?</li>');
+    $q('ul').$append('<li id="wtf">wft?</li>');
     
     $qa('ul li')[4].$after('<li>anther one!</li>').$addClass('blue');
 
@@ -32,6 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
     $secondLi.$siblings().forEach((e) => {
         e.$addClass('green');
     });
+
+    console.log($q('#sixth').$parents());
+    console.log($q('#sixth').$parents('ul'));
+
+    console.log($q('#sixth').$closest());
+    console.log($q('#sixth').$closest('body'));
+
+    console.log($q('ul').$children());
+    console.log($q('ul').$children('.red'));
+
+    console.log($q('li.red').$siblings());
+    console.log($q('li.red').$siblings('.green'));
 });
 
 $q('ul').$on('click', 'li', (e) => e.target.$removeClass('red').$addClass('blue').$toggleClass('bold'));
@@ -47,3 +59,4 @@ setTimeout(() => {
     $q('#type-it').$click().$focus().$blur().$change();
     $q('ul').$off('click', 'li');
 }, 5000);
+
