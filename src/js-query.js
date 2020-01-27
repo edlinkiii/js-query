@@ -45,6 +45,7 @@ HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { th
 HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } else return this.dataset[key]; }
 HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } else return this.getAttribute(key); }
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
+HTMLElement.prototype.css = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
 HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.offset = function() { return this.getBoundingClientRect(); }
@@ -55,6 +56,7 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // HTMLElement.blur() // -- ALREADY EXISTS
 
 const __isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
+const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 
 function eventHandler(e) {
     for(let selector in this.__events[e.type]) {
