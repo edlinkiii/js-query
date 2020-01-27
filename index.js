@@ -26,8 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $q('ul').$before(el);
 
-    let $sibs = $secondLi.$siblings();
-    console.log($sibs);
+    $secondLi.$siblings().forEach((e) => {
+        e.$addClass('green');
+    });
 });
 
 $q('ul').$on('click', 'li', (e) => e.target.$removeClass('red').$addClass('blue').$toggleClass('bold'));
