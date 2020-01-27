@@ -19,12 +19,12 @@ NodeList.prototype.$hide = function() { this.forEach((n) => n.style.display = 'n
 NodeList.prototype.$show = function() { this.forEach((n) => n.style.display = 'initial'); return this; }
 NodeList.prototype.$toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : '' ); return this; }
 
-HTMLElement.prototype.$text = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
-HTMLElement.prototype.$html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
-HTMLElement.prototype.$markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
+HTMLElement.prototype.$text = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } return this.innerText; }
+HTMLElement.prototype.$html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } return this.innerHTML; }
+HTMLElement.prototype.$markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } return this.outerHTML; }
 
-HTMLElement.prototype.$prepend = function(string) { if(string === undefined) return; else { let el = document.createElement(null); el.innerHTML = string; this.prepend(el); return this; } }
-HTMLElement.prototype.$append = function(string) { if(string === undefined) return; else { let el = document.createElement(null); el.innerHTML = string; this.append(el); return this; } }
+HTMLElement.prototype.$prepend = function(string) { if(string === undefined) return; this.prepend(($_isElement(string)) ? string : $_fakeElement(string)); return this; }
+HTMLElement.prototype.$append = function(string) { if(string === undefined) return; this.append(($_isElement(string)) ? string : $_fakeElement(string)); return this; }
 
 HTMLElement.prototype.$addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.$removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
@@ -35,10 +35,10 @@ NodeList.prototype.$addClass = function(newClass) { this.forEach((n) => n.classL
 NodeList.prototype.$removeClass = function(oldClass) { this.forEach((n) => n.classList.remove(oldClass)); return this; }
 NodeList.prototype.$toggleClass = function(thisClass) { this.forEach((n) => n.classList.toggle(thisClass)); return this; }
 
-HTMLElement.prototype.$val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } else return this.value; }
-HTMLElement.prototype.$data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } else return this.dataset[key]; }
-HTMLElement.prototype.$attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } else return this.getAttribute(key); }
-HTMLElement.prototype.$prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
+HTMLElement.prototype.$val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } return this.value; }
+HTMLElement.prototype.$data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } return this.dataset[key]; }
+HTMLElement.prototype.$attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } return this.getAttribute(key); }
+HTMLElement.prototype.$prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
 
 HTMLElement.prototype.$position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.$offset = function() { return this.getBoundingClientRect(); }
@@ -47,6 +47,9 @@ EventTarget.prototype.$change = function() { return this.dispatchEvent(new Event
 HTMLElement.prototype.$click = function() { this.click(); return this; }
 HTMLElement.prototype.$focus = function() { this.focus(); return this; }
 HTMLElement.prototype.$blur = function() { this.blur(); return this; }
+
+const $_isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument);
+const $_fakeElement = (string) => { let el = document.createElement(null); el.innerHTML = string; return el; }
 
 function $eventHandler(e) {
     for(let selector in this.__events[e.type]) {

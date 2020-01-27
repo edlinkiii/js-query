@@ -16,8 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').$val()));
 
     $q('ul').$append('<li>wft?</li>');
+    
+    $qa('ul li')[4].$after('<li>anther one!</li>').$addClass('blue');
 
     $q('#stuff').$markup('<h6>A new thing!</h6>');
+
+    let el = document.createElement('p');
+    el.innerHTML = 'Hi there!';
+
+    $q('ul').$before(el);
 });
 
 $q('ul').$on('click', 'li', (e) => e.target.$removeClass('red').$addClass('blue').$toggleClass('bold'));
