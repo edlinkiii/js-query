@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $q('ul').$before(el);
 
+    $q('ul').$css('border', '1px solid yellow').$css('border-radius', '5px');
+    console.log($q('ul').$css('border-bottom-color'));
+
     $secondLi.$siblings().forEach((e) => {
         e.$addClass('green');
     });

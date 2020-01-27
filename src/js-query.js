@@ -43,6 +43,7 @@ HTMLElement.prototype.$val = function(newValue) { if(newValue !== undefined) { t
 HTMLElement.prototype.$data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } return this.dataset[key]; }
 HTMLElement.prototype.$attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } return this.getAttribute(key); }
 HTMLElement.prototype.$prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
+HTMLElement.prototype.$css = function(key, value) { if(value !== undefined) { this.style[$_camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
 HTMLElement.prototype.$position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.$offset = function() { return this.getBoundingClientRect(); }
@@ -52,10 +53,11 @@ HTMLElement.prototype.$click = function() { this.click(); return this; }
 HTMLElement.prototype.$focus = function() { this.focus(); return this; }
 HTMLElement.prototype.$blur = function() { this.blur(); return this; }
 
-const $_isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument);
+const $_isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
 const $_fakeElement = (string) => { let el = document.createElement(null); el.innerHTML = string; return el; }
+const $_camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 
-function $eventHandler(e) {
+function $_eventHandler(e) {
     for(let selector in this.__events[e.type]) {
         if(e.target.matches && e.target.matches(selector)) {
             const callbacks = this.__events[e.type][selector];
@@ -71,7 +73,7 @@ HTMLDocument.prototype.$on = function(event, selector, func) {
     if(!this.__events[event]) this.__events[event] = {};
     if(!this.__events[event][selector]) this.__events[event][selector] = [];
     this.__events[event][selector].push(func);
-    this.addEventListener(event, $eventHandler, true);
+    this.addEventListener(event, $_eventHandler, true);
 };
 HTMLDocument.prototype.$off = function(event, selector) {
     if(this.__events) {
@@ -81,7 +83,7 @@ HTMLDocument.prototype.$off = function(event, selector) {
             }
         }
     }
-    this.removeEventListener(event, $eventHandler, true);
+    this.removeEventListener(event, $_eventHandler, true);
 };
 
 HTMLElement.prototype.$on = function(event, selector, func) {
