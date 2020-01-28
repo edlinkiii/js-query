@@ -15,21 +15,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     $q('#click-it').addEventListener('click', (e) => alert($q('#type-it').val()));
 
-    $q('ul').append('<li>wft?</li>');
+    $q('ul').append('<li id="wtf">wft?</li>');
+    
+    $qa('ul li')[4].after('<li>anther one!</li>').addClass('blue');
 
     $q('#stuff').markup('<h6>A new thing!</h6>');
+
+    let el = document.createElement('p');
+    el.innerHTML = 'Hi there!';
+
+    $q('ul').before(el);
+
+    $q('ul').css('border', '1px solid yellow').css('border-radius', '5px');
+    console.log($q('ul').css('border-bottom-color'));
+
+    $secondLi.siblings().forEach((e) => {
+        e.addClass('green');
+    });
+
+    console.log($q('#sixth').parents());
+    console.log($q('#sixth').parents('ul'));
+
+    console.log($q('#sixth').closest());
+    console.log($q('#sixth').closest('body'));
+
+    // console.log($q('#junk').children);
+    // console.log($q('ul').children('.red'));
+
+    console.log($q('li.red').siblings());
+    console.log($q('li.red').siblings('.green'));
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
 
-// $q(document).on('click','#type-it', (e) => console.log('click', e.target.value));
-// $q(document).on('click','#type-it', (e) => console.log('click(2)', e.target.value));
-// $q(document).on('focus','#type-it', (e) => console.log('focus', e.target.value));
-// $q(document).on('blur','#type-it', (e) => console.log('blur', e.target.value));
-// $q(document).on('change','#type-it', (e) => console.log('change', e.target.value));
-// $q(document).on('input','#type-it', (e) => console.log('input', e.target.value));
+$q(document).on('click','#type-it',  (e) => console.log('click', e.target.value));
+$q(document).on('click','#type-it',  (e) => console.log('click(2)', e.target.value));
+$q(document).on('focus','#type-it',  (e) => console.log('focus', e.target.value));
+$q(document).on('blur','#type-it',   (e) => console.log('blur', e.target.value));
+$q(document).on('change','#type-it', (e) => console.log('change', e.target.value));
+$q(document).on('input','#type-it',  (e) => console.log('input', e.target.value));
 
 setTimeout(() => {
-    // console.log('off()');
+    $q('#type-it').click();
+    $q('#type-it').focus();
+    $q('#type-it').blur();
+    $q('#type-it').change();
     $q('ul').off('click', 'li');
 }, 5000);
+
