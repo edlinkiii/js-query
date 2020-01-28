@@ -58,7 +58,7 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 const __isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 
-function eventHandler(e) {
+function __eventHandler(e) {
     for(let selector in this.__events[e.type]) {
         if(e.target.matches && e.target.matches(selector)) {
             const callbacks = this.__events[e.type][selector];
@@ -74,7 +74,7 @@ HTMLDocument.prototype.on = function(event, selector, func) {
     if(!this.__events[event]) this.__events[event] = {};
     if(!this.__events[event][selector]) this.__events[event][selector] = [];
     this.__events[event][selector].push(func);
-    this.addEventListener(event, eventHandler, true);
+    this.addEventListener(event, __eventHandler, true);
 };
 HTMLDocument.prototype.off = function(event, selector) {
     if(this.__events) {
@@ -84,7 +84,7 @@ HTMLDocument.prototype.off = function(event, selector) {
             }
         }
     }
-    this.removeEventListener(event, eventHandler, true);
+    this.removeEventListener(event, __eventHandler, true);
 };
 
 HTMLElement.prototype.on = function(event, selector, func) {
