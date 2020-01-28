@@ -39,8 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log($q('#sixth').closest());
     console.log($q('#sixth').closest('body'));
 
-    // console.log($q('#junk').children);
-    // console.log($q('ul').children('.red'));
+    console.log($q('#junk').kids());
+    console.log($q('ul').kids('.red'));
 
     console.log($q('li.red').siblings());
     console.log($q('li.red').siblings('.green'));
