@@ -49,9 +49,13 @@ NodeList.prototype.hide = function() { this.forEach((n) => n.style.display = 'no
 NodeList.prototype.show = function() { this.forEach((n) => n.style.display = 'initial'); return this; }
 NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : '' ); return this; }
 
-HTMLElement.prototype.text = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
-HTMLElement.prototype.html = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
+HTMLElement.prototype.text   = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
+HTMLElement.prototype.html   = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
 HTMLElement.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
+
+NodeList.prototype.text   = function(textString) { if(textString === undefined) return; this.forEach((n) => n.innerText = textString); return this; }
+NodeList.prototype.html   = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.innerHTML = htmlString); return this; }
+NodeList.prototype.markup = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.outerHTML = htmlString); return this; }
 
 HTMLElement.prototype.before = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('beforebegin', string); } else { this.insertAdjacentHTML('beforebegin', string); } return this; }
 HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('afterbegin', string); } else { this.insertAdjacentHTML('afterbegin', string); } return this; }
@@ -71,13 +75,13 @@ HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { th
 HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } else return this.dataset[key]; }
 HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } else return this.getAttribute(key); }
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
-HTMLElement.prototype.css = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
+HTMLElement.prototype.css  = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
-NodeList.prototype.val = function(newValue) { if(newValue === undefined) return false; this.forEach((n) => { n.value = newValue; }); return this; }
-NodeList.prototype.data = function(key, value) { if(value === undefined) return false; this.forEach((n) => { n.dataset[key] = value; }); return this; }
-NodeList.prototype.attr = function(key, value) { if(value === undefined) return false; this.forEach((n) => { n.setAttribute(key, value); }); return this; }
-NodeList.prototype.prop = function(key, value) { if(value === undefined) return false; this.forEach((n) => { n[key] = value; }); return this; }
-NodeList.prototype.css = function(key, value)  { if(value === undefined) return false; this.forEach((n) => { n.style[__camelCase(key)] = value; }); return this; }
+NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => { n.value = newValue; }); return this; }
+NodeList.prototype.data = function(key, value) { if(value === undefined) return; this.forEach((n) => { n.dataset[key] = value; }); return this; }
+NodeList.prototype.attr = function(key, value) { if(value === undefined) return; this.forEach((n) => { n.setAttribute(key, value); }); return this; }
+NodeList.prototype.prop = function(key, value) { if(value === undefined) return; this.forEach((n) => { n[key] = value; }); return this; }
+NodeList.prototype.css  = function(key, value) { if(value === undefined) return; this.forEach((n) => { n.style[__camelCase(key)] = value; }); return this; }
 
 HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.offset = function() { return this.getBoundingClientRect(); }
