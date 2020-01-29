@@ -73,6 +73,12 @@ HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { th
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
 HTMLElement.prototype.css = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
+NodeList.prototype.val = function(newValue) { if(newValue === undefined) return false; this.forEach((n) => { n.value = newValue; }); return this; }
+NodeList.prototype.data = function(key, value) { if(value === undefined) return false; this.forEach((n) => { n.dataset[key] = value; }); return this; }
+NodeList.prototype.attr = function(key, value) { if(value === undefined) return false; this.forEach((n) => { n.setAttribute(key, value); }); return this; }
+NodeList.prototype.prop = function(key, value) { if(value === undefined) return false; this.forEach((n) => { n[key] = value; }); return this; }
+NodeList.prototype.css = function(key, value)  { if(value === undefined) return false; this.forEach((n) => { n.style[__camelCase(key)] = value; }); return this; }
+
 HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.offset = function() { return this.getBoundingClientRect(); }
 
