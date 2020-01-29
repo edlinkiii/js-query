@@ -29,58 +29,58 @@ const $q = (selector) => (selector === document) ? document : document.querySele
  */
 const $qa = (selector) => document.querySelectorAll(selector);
 
-HTMLElement.prototype.find = function(selector) { return this.querySelector(selector); }
-HTMLElement.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
+Element.prototype.find = function(selector) { return this.querySelector(selector); }
+Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
 
-HTMLElement.prototype.parent   = function() { return this.parentElement; }
-HTMLElement.prototype.parents  = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
-HTMLElement.prototype.closest  = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
-HTMLElement.prototype.kids     = function(selector) { if(selector) return Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.childNodes, (child) => child.tagName); }
-HTMLElement.prototype.siblings = function(selector) { if(selector) return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName); }
+Element.prototype.parent   = function() { return this.parentElement; }
+Element.prototype.parents  = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
+Element.prototype.closest  = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
+Element.prototype.kids     = function(selector) { if(selector) return Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.childNodes, (child) => child.tagName); }
+Element.prototype.siblings = function(selector) { if(selector) return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName); }
 
-HTMLElement.prototype.next = function() { return this.nextElementSibling; }
-HTMLElement.prototype.prev = function() { return this.previousElementSibling; }
+Element.prototype.next = function() { return this.nextElementSibling; }
+Element.prototype.prev = function() { return this.previousElementSibling; }
 
-HTMLElement.prototype.hide   = function() { this.style.display = 'none';    return this; }
-HTMLElement.prototype.show   = function() { this.style.display = 'initial'; return this; }
-HTMLElement.prototype.toggle = function() { this.style.display = (this.style.display !== 'none') ? 'none' : 'initial' ; return this; }
+Element.prototype.hide   = function() { this.style.display = 'none';    return this; }
+Element.prototype.show   = function() { this.style.display = 'initial'; return this; }
+Element.prototype.toggle = function() { this.style.display = (this.style.display !== 'none') ? 'none' : 'initial' ; return this; }
 
 NodeList.prototype.hide   = function() { this.forEach((n) => n.style.display = 'none');    return this; }
 NodeList.prototype.show   = function() { this.forEach((n) => n.style.display = 'initial'); return this; }
 NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : 'initial'); return this; }
 
-HTMLElement.prototype.text   = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
-HTMLElement.prototype.html   = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
-HTMLElement.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
+Element.prototype.text   = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
+Element.prototype.html   = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
+Element.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
 
 NodeList.prototype.text   = function(textString) { if(textString === undefined) return; this.forEach((n) => n.innerText = textString); return this; }
 NodeList.prototype.html   = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.innerHTML = htmlString); return this; }
 NodeList.prototype.markup = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.outerHTML = htmlString); return this; }
 
-HTMLElement.prototype.before  = function(obj) { if(obj === undefined) return; let place = 'beforebegin'; __insertAdjacent(this, place, obj); return this; }
-HTMLElement.prototype.prepend = function(obj) { if(obj === undefined) return; let place = 'afterbegin';  __insertAdjacent(this, place, obj); return this; }
-HTMLElement.prototype.append  = function(obj) { if(obj === undefined) return; let place = 'beforeend';   __insertAdjacent(this, place, obj); return this; }
-HTMLElement.prototype.after   = function(obj) { if(obj === undefined) return; let place = 'afterend';    __insertAdjacent(this, place, obj); return this; }
+Element.prototype.before  = function(obj) { if(obj === undefined) return; let place = 'beforebegin'; __insertAdjacent(this, place, obj); return this; }
+Element.prototype.prepend = function(obj) { if(obj === undefined) return; let place = 'afterbegin';  __insertAdjacent(this, place, obj); return this; }
+Element.prototype.append  = function(obj) { if(obj === undefined) return; let place = 'beforeend';   __insertAdjacent(this, place, obj); return this; }
+Element.prototype.after   = function(obj) { if(obj === undefined) return; let place = 'afterend';    __insertAdjacent(this, place, obj); return this; }
 
 NodeList.prototype.before  = function(obj) { if(obj === undefined) return; let place = 'beforebegin'; this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
 NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; let place = 'afterbegin';  this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
 NodeList.prototype.append  = function(obj) { if(obj === undefined) return; let place = 'beforeend';   this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
 NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let place = 'afterend';    this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
 
-HTMLElement.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
-HTMLElement.prototype.addClass    = function(newClass)  { this.classList.add(newClass);     return this; }
-HTMLElement.prototype.removeClass = function(oldClass)  { this.classList.remove(oldClass);  return this; }
-HTMLElement.prototype.toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
+Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
+Element.prototype.addClass    = function(newClass)  { this.classList.add(newClass);     return this; }
+Element.prototype.removeClass = function(oldClass)  { this.classList.remove(oldClass);  return this; }
+Element.prototype.toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
 
 NodeList.prototype.addClass    = function(newClass)  { this.forEach((n) => n.classList.add(newClass));     return this; }
 NodeList.prototype.removeClass = function(oldClass)  { this.forEach((n) => n.classList.remove(oldClass));  return this; }
 NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.classList.toggle(thisClass)); return this; }
 
-HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } return this.value; }
-HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } return this.dataset[key]; }
-HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } return this.getAttribute(key); }
-HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
-HTMLElement.prototype.css  = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
+Element.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } return this.value; }
+Element.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } return this.dataset[key]; }
+Element.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } return this.getAttribute(key); }
+Element.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
+Element.prototype.css  = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
 NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => n.value = newValue); return this; }
 NodeList.prototype.data = function(key, value) { if(value === undefined) return; this.forEach((n) => n.dataset[key] = value); return this; }
@@ -88,17 +88,17 @@ NodeList.prototype.attr = function(key, value) { if(value === undefined) return;
 NodeList.prototype.prop = function(key, value) { if(value === undefined) return; this.forEach((n) => n[key] = value); return this; }
 NodeList.prototype.css  = function(key, value) { if(value === undefined) return; this.forEach((n) => n.style[__camelCase(key)] = value); return this; }
 
-HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
-HTMLElement.prototype.offset   = function() { return this.getBoundingClientRect(); }
+Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
+Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
 
-HTMLElement.prototype.remove = function() { this.parentNode.removeChild(this); return false; }
+Element.prototype.remove = function() { this.parentNode.removeChild(this); return false; }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
-// HTMLElement.click() // -- ALREADY EXISTS
-// HTMLElement.focus() // -- ALREADY EXISTS
-// HTMLElement.blur() // -- ALREADY EXISTS
+// Element.click() // -- ALREADY EXISTS
+// Element.focus() // -- ALREADY EXISTS
+// Element.blur() // -- ALREADY EXISTS
 
-const __isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
+const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
 
@@ -131,10 +131,10 @@ HTMLDocument.prototype.off = function(event, selector) {
     this.removeEventListener(event, __eventHandler, true);
 };
 
-HTMLElement.prototype.on = function(event, selector, func) {
+Element.prototype.on = function(event, selector, func) {
     HTMLDocument.prototype.on.apply(this, [].slice.call(arguments));
 };
-HTMLElement.prototype.off = function(event, selector) {
+Element.prototype.off = function(event, selector) {
     HTMLDocument.prototype.off.apply(this, [].slice.call(arguments));
 };
 
