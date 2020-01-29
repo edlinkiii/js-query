@@ -13,7 +13,11 @@ $q('#id').hide(); // js-query
 
 // let that = $('.this-class:eq(1) .that') // jQuery
 let that = $qa('.this-class')[1].find('.that') // js-query
+
+// Chainable and completely interchangeable with Vanilla JavaScript
+let el = document.getElementById('abc123');
+el.html('Hello World').addClass('red').toggleClass('bold');
 ```
 
 #### Caveats
-Unlike jQuery, document.querySelector is very strick about beginning an element's id with a letter.
+Unlike jQuery, document.querySelector is **very** strick about beginning an element's id with a letter.
