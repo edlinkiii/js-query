@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $q('#stuff').markup('<h6>A new thing!</h6>');
 
     let el = document.createElement('p');
-    el.innerHTML = 'Hi there!';
+    el.text('Hi there!');
 
     $q('ul').before(el);
 
