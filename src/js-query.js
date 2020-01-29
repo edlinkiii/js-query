@@ -91,7 +91,7 @@ NodeList.prototype.css  = function(key, value) { if(value === undefined) return;
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
 
-Element.prototype.remove = function() { this.parentNode.removeChild(this); return false; }
+// Element.remove() // -- ALREADY EXISTS
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // Element.click() // -- ALREADY EXISTS
