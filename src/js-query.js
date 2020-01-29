@@ -47,7 +47,7 @@ HTMLElement.prototype.toggle = function() { this.style.display = (this.style.dis
 
 NodeList.prototype.hide   = function() { this.forEach((n) => n.style.display = 'none');    return this; }
 NodeList.prototype.show   = function() { this.forEach((n) => n.style.display = 'initial'); return this; }
-NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : 'initial' ); return this; }
+NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : 'initial'); return this; }
 
 HTMLElement.prototype.text   = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
 HTMLElement.prototype.html   = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
@@ -82,11 +82,11 @@ HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { th
 HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
 HTMLElement.prototype.css  = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
-NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => { n.value = newValue; }); return this; }
-NodeList.prototype.data = function(key, value) { if(value === undefined) return; this.forEach((n) => { n.dataset[key] = value; }); return this; }
-NodeList.prototype.attr = function(key, value) { if(value === undefined) return; this.forEach((n) => { n.setAttribute(key, value); }); return this; }
-NodeList.prototype.prop = function(key, value) { if(value === undefined) return; this.forEach((n) => { n[key] = value; }); return this; }
-NodeList.prototype.css  = function(key, value) { if(value === undefined) return; this.forEach((n) => { n.style[__camelCase(key)] = value; }); return this; }
+NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => n.value = newValue); return this; }
+NodeList.prototype.data = function(key, value) { if(value === undefined) return; this.forEach((n) => n.dataset[key] = value); return this; }
+NodeList.prototype.attr = function(key, value) { if(value === undefined) return; this.forEach((n) => n.setAttribute(key, value)); return this; }
+NodeList.prototype.prop = function(key, value) { if(value === undefined) return; this.forEach((n) => n[key] = value); return this; }
+NodeList.prototype.css  = function(key, value) { if(value === undefined) return; this.forEach((n) => n.style[__camelCase(key)] = value); return this; }
 
 HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.offset   = function() { return this.getBoundingClientRect(); }
