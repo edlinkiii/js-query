@@ -62,6 +62,11 @@ HTMLElement.prototype.prepend = function(obj) { if(obj === undefined) return; le
 HTMLElement.prototype.append  = function(obj) { if(obj === undefined) return; let place = 'beforeend';   __insertAdjacent(this, place, obj); return this; }
 HTMLElement.prototype.after   = function(obj) { if(obj === undefined) return; let place = 'afterend';    __insertAdjacent(this, place, obj); return this; }
 
+NodeList.prototype.before  = function(obj) { if(obj === undefined) return; let place = 'beforebegin'; this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
+NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; let place = 'afterbegin';  this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
+NodeList.prototype.append  = function(obj) { if(obj === undefined) return; let place = 'beforeend';   this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
+NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let place = 'afterend';    this.forEach((n) => __insertAdjacent(n, place, obj)); return this; }
+
 HTMLElement.prototype.addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
 HTMLElement.prototype.toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
