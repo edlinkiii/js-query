@@ -113,6 +113,8 @@ function __eventHandler(e) {
     }
 }
 
+HTMLDocument.prototype.ready = function(func) { document.addEventListener('DOMContentLoaded', func) }
+
 HTMLDocument.prototype.on = function(event, selector, func) {
     if(!this.__events) this.__events = {};
     if(!this.__events[event]) this.__events[event] = {};

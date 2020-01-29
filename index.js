@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+$q(document).ready(() => {
     $q('#stuff').hide();
 
     $q('#place').html($q('p').parent().html()).find('p').prepend('stuff & ').append(' and some junk!').addClass('bold');
