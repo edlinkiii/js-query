@@ -44,6 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log($q('li.red').siblings());
     console.log($q('li.red').siblings('.green'));
+
+    $secondLi.remove();
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));

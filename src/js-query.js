@@ -1,6 +1,32 @@
-// Vanilla JS helpers -- for recovering jQuery users
+/**
+ * js-query -- Vanilla JS shortcuts for recovering jQuery users.
+ * 
+ * This project in no way is meant to fully replace everything jQuery can do.
+ * At most, it offers a jQuery feel (shorthand) to Vanilla JavaScript.
+ * 
+ * @author Ed Link III.
+ */
 
+/**
+ * Shortcut for document.querySelector().
+ * 
+ * Adds a jQuery feel to Vanilla JS.
+ * Used for a single element (eg, '#id').
+ * 
+ * @param {string}  selector    `CSS` selector for element.
+ * @return {element} Returns an element.
+ */
 const $q = (selector) => (selector === document) ? document : document.querySelector(selector);
+
+/**
+ * Shortcut for document.querySelector().
+ * 
+ * Adds a jQuery feel to Vanilla JS.
+ * Used for multiple elements (eg, '.class').
+ * 
+ * @param {string}  selector    `CSS` selector for element.
+ * @return {elementList} Returns an elementList.
+ */
 const $qa = (selector) => document.querySelectorAll(selector);
 
 HTMLElement.prototype.find = function(selector) { return this.querySelector(selector); }
@@ -49,6 +75,8 @@ HTMLElement.prototype.css = function(key, value) { if(value !== undefined) { thi
 
 HTMLElement.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 HTMLElement.prototype.offset = function() { return this.getBoundingClientRect(); }
+
+HTMLElement.prototype.remove = function() { this.parentNode.removeChild(this); return false; }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // HTMLElement.click() // -- ALREADY EXISTS
