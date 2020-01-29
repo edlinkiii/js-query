@@ -57,10 +57,10 @@ NodeList.prototype.text   = function(textString) { if(textString === undefined) 
 NodeList.prototype.html   = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.innerHTML = htmlString); return this; }
 NodeList.prototype.markup = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.outerHTML = htmlString); return this; }
 
-HTMLElement.prototype.before = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('beforebegin', string); } else { this.insertAdjacentHTML('beforebegin', string); } return this; }
-HTMLElement.prototype.prepend = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('afterbegin', string); } else { this.insertAdjacentHTML('afterbegin', string); } return this; }
-HTMLElement.prototype.append = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('beforeend', string); } else { this.insertAdjacentHTML('beforeend', string); } return this; }
-HTMLElement.prototype.after = function(string) { if(string === undefined) return; if(__isElement(string)) { this.insertAdjacentElement('afterend', string); } else { this.insertAdjacentHTML('afterend', string); } return this; }
+HTMLElement.prototype.before  = function(obj) { if(obj === undefined) return; let place = 'beforebegin'; __insertAdjacent(this, place, obj); return this; }
+HTMLElement.prototype.prepend = function(obj) { if(obj === undefined) return; let place = 'afterbegin';  __insertAdjacent(this, place, obj); return this; }
+HTMLElement.prototype.append  = function(obj) { if(obj === undefined) return; let place = 'beforeend';   __insertAdjacent(this, place, obj); return this; }
+HTMLElement.prototype.after   = function(obj) { if(obj === undefined) return; let place = 'afterend';    __insertAdjacent(this, place, obj); return this; }
 
 HTMLElement.prototype.addClass = function(newClass) { this.classList.add(newClass); return this; }
 HTMLElement.prototype.removeClass = function(oldClass) { this.classList.remove(oldClass); return this; }
@@ -71,10 +71,10 @@ NodeList.prototype.addClass = function(newClass) { this.forEach((n) => n.classLi
 NodeList.prototype.removeClass = function(oldClass) { this.forEach((n) => n.classList.remove(oldClass)); return this; }
 NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.classList.toggle(thisClass)); return this; }
 
-HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } else return this.value; }
-HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } else return this.dataset[key]; }
-HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } else return this.getAttribute(key); }
-HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } else return this[key]; }
+HTMLElement.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } return this.value; }
+HTMLElement.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } return this.dataset[key]; }
+HTMLElement.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } return this.getAttribute(key); }
+HTMLElement.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
 HTMLElement.prototype.css  = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
 
 NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => { n.value = newValue; }); return this; }
@@ -95,6 +95,7 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 
 const __isElement = (element) => (element instanceof Element || element instanceof HTMLElement || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
+const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
 
 function __eventHandler(e) {
     for(let selector in this.__events[e.type]) {
