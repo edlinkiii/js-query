@@ -25,7 +25,7 @@ const $q = (selector) => (selector === document) ? document : document.querySele
  * Used for multiple elements (eg, '.class').
  * 
  * @param {string}  selector    `CSS` selector for element.
- * @return {elementList} Returns an elementList.
+ * @return {elementList} Returns an elementList (NodeList).
  */
 const $qa = (selector) => document.querySelectorAll(selector);
 
