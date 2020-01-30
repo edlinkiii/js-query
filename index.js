@@ -19,6 +19,8 @@ $q(document).ready(() => {
     
     $qa('ul li')[4].after('<li>anther one!</li>').addClass('blue');
 
+    $qa('ul li').hide();
+
     $q('#stuff').markup('<h6>A new thing!</h6>');
 
     let el = document.createElement('p');
@@ -58,6 +60,7 @@ $q(document).on('change','#type-it', (e) => console.log('change', e.target.value
 $q(document).on('input','#type-it',  (e) => console.log('input', e.target.value));
 
 setTimeout(() => {
+    $qa('ul li').toggle();
     $q('#type-it').click();
     $q('#type-it').focus();
     $q('#type-it').blur();
