@@ -98,6 +98,12 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // Element.focus() // -- ALREADY EXISTS
 // Element.blur() // -- ALREADY EXISTS
 
+// COMING SOON...
+// Element.prototype.clone
+// NodeList.prototype.filter
+// HTMLDocument.prototype.create
+// Element.prototype.empty
+
 const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
