@@ -48,9 +48,9 @@ NodeList.prototype.hide   = function() { this.forEach((n) => n.hide());   return
 NodeList.prototype.show   = function() { this.forEach((n) => n.show());   return this; }
 NodeList.prototype.toggle = function() { this.forEach((n) => n.toggle()); return this; }
 
-Element.prototype.text   = function(textString) { if(textString === undefined) return this.innerText; this.innerText = textString; return this; }
-Element.prototype.html   = function(htmlString) { if(htmlString === undefined) return this.innerHTML; this.innerHTML = htmlString; return this; }
-Element.prototype.markup = function(htmlString) { if(htmlString === undefined) return this.outerHTML; this.outerHTML = htmlString; return this; }
+Element.prototype.text   = function(textString) { if(textString === undefined) return this.textContent; this.textContent = textString; return this; }
+Element.prototype.html   = function(htmlString) { if(htmlString === undefined) return this.innerHTML;   this.innerHTML = htmlString;   return this; }
+Element.prototype.markup = function(htmlString) { if(htmlString === undefined) return this.outerHTML;   this.outerHTML = htmlString;   return this; }
 
 NodeList.prototype.text   = function(textString) { if(textString === undefined) return; this.forEach((n) => n.text(textString));   return this; }
 NodeList.prototype.html   = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.html(htmlString));   return this; }
