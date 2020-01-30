@@ -49,7 +49,7 @@ $q(document).ready(() => {
 
     $secondLi.remove();
 
-    $newEl = $q().create('p').text('All new element!').appendTo('body');
+    $newEl = $q().create('p').text('All new element!').prependTo('body');
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
