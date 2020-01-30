@@ -16,7 +16,7 @@
  * @param {string}  selector    `CSS` selector for element.
  * @return {element} Returns an element.
  */
-const $q = (selector) => (selector === document) ? document : document.querySelector(selector);
+const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 
 /**
  * Shortcut for document.querySelector().
