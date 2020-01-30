@@ -49,9 +49,9 @@ NodeList.prototype.hide   = function() { this.forEach((n) => n.style.display = '
 NodeList.prototype.show   = function() { this.forEach((n) => n.style.display = __defaultDisplay(this.tagName)); return this; }
 NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : __defaultDisplay(this.tagName)); return this; }
 
-Element.prototype.text   = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
-Element.prototype.html   = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
-Element.prototype.markup = function(htmlString) { if(htmlString !== undefined) { this.outerHTML = htmlString; return this; } else return this.outerHTML; }
+Element.prototype.text   = function(textString) { if(textString === undefined) return this.innerText; this.innerText = textString; return this; }
+Element.prototype.html   = function(htmlString) { if(htmlString === undefined) return this.innerHTML; this.innerHTML = htmlString; return this; }
+Element.prototype.markup = function(htmlString) { if(htmlString === undefined) return this.outerHTML; this.outerHTML = htmlString; return this; }
 
 NodeList.prototype.text   = function(textString) { if(textString === undefined) return; this.forEach((n) => n.innerText = textString); return this; }
 NodeList.prototype.html   = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.innerHTML = htmlString); return this; }
@@ -76,11 +76,11 @@ NodeList.prototype.addClass    = function(newClass)  { this.forEach((n) => n.cla
 NodeList.prototype.removeClass = function(oldClass)  { this.forEach((n) => n.classList.remove(oldClass));  return this; }
 NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.classList.toggle(thisClass)); return this; }
 
-Element.prototype.val = function(newValue) { if(newValue !== undefined) { this.value = newValue; return this; } return this.value; }
-Element.prototype.data = function(key, value) { if(value !== undefined) { this.dataset[key] = value; return this; } return this.dataset[key]; }
-Element.prototype.attr = function(key, value) { if(value !== undefined) { this.setAttribute(key, value); return this; } return this.getAttribute(key); }
-Element.prototype.prop = function(key, value) { if(value !== undefined) { this[key] = value; return this; } return this[key]; }
-Element.prototype.css  = function(key, value) { if(value !== undefined) { this.style[__camelCase(key)] = value; return this; } return getComputedStyle(this)[key]; }
+Element.prototype.val = function(newValue) { if(newValue === undefined) return this.value; this.value = newValue; return this; }
+Element.prototype.data = function(key, value) { if(value === undefined) return this.dataset[key]; this.dataset[key] = value; return this; }
+Element.prototype.attr = function(key, value) { if(value === undefined) return this.getAttribute(key); this.setAttribute(key, value); return this; }
+Element.prototype.prop = function(key, value) { if(value === undefined) return this[key]; this[key] = value; return this; }
+Element.prototype.css  = function(key, value) { if(value === undefined) return getComputedStyle(this)[key]; this.style[__camelCase(key)] = value; return this; }
 
 NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => n.value = newValue); return this; }
 NodeList.prototype.data = function(key, value) { if(value === undefined) return; this.forEach((n) => n.dataset[key] = value); return this; }
