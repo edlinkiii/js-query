@@ -91,6 +91,7 @@ NodeList.prototype.css  = function(key, value) { if(value === undefined) return;
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
 
+HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
 // Element.remove() // -- ALREADY EXISTS
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
@@ -101,7 +102,6 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // COMING SOON...
 // Element.prototype.clone
 // NodeList.prototype.filter
-// HTMLDocument.prototype.create
 // Element.prototype.empty
 
 const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)

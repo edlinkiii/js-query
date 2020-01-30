@@ -48,6 +48,9 @@ $q(document).ready(() => {
     console.log($q('li.red').siblings('.green'));
 
     $secondLi.remove();
+
+    $newEl = $q().create('p').text('All new element!');
+    $q('body').append($newEl);
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
