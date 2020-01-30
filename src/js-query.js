@@ -92,8 +92,11 @@ Element.prototype.position = function() { return { left: this.offsetLeft, top: t
 Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
 
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
+Element.prototype.clone = function(deep = true) { let el = this.cloneNode(deep); return el; }
+
 Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).append(this);  return this; }
 Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
+
 // Element.remove() // -- ALREADY EXISTS
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
@@ -102,7 +105,6 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // Element.blur() // -- ALREADY EXISTS
 
 // COMING SOON...
-// Element.prototype.clone
 // NodeList.prototype.filter
 // Element.prototype.empty
 
