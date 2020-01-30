@@ -61,6 +61,9 @@ Element.prototype.prepend = function(obj) { if(obj === undefined) return; __inse
 Element.prototype.append  = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'beforeend', obj);   return this; }
 Element.prototype.after   = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'afterend', obj);    return this; }
 
+Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).append(this);  return this; }
+Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
+
 NodeList.prototype.before  = function(obj) { if(obj === undefined) return; this.forEach((n) => n.before(obj));  return this; }
 NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; this.forEach((n) => n.prepend(obj)); return this; }
 NodeList.prototype.append  = function(obj) { if(obj === undefined) return; this.forEach((n) => n.append(obj));  return this; }
@@ -82,23 +85,19 @@ Element.prototype.attr = function(key, value) { if(value === undefined)    retur
 Element.prototype.prop = function(key, value) { if(value === undefined)    return this[key];                   this[key] = value;                    return this; }
 Element.prototype.css  = function(key, value) { if(value === undefined)    return getComputedStyle(this)[key]; this.style[__camelCase(key)] = value; return this; }
 
-NodeList.prototype.val = function(newValue) { if(newValue === undefined) return; this.forEach((n) => n.val(newValue));    return this; }
-NodeList.prototype.data = function(key, value) { if(value === undefined) return; this.forEach((n) => n.dat(key, value));  return this; }
-NodeList.prototype.attr = function(key, value) { if(value === undefined) return; this.forEach((n) => n.attr(key, value)); return this; }
-NodeList.prototype.prop = function(key, value) { if(value === undefined) return; this.forEach((n) => n.prop(key, value)); return this; }
-NodeList.prototype.css  = function(key, value) { if(value === undefined) return; this.forEach((n) => n.css(key, value));  return this; }
+NodeList.prototype.val  = function(newValue)   { if(newValue === undefined) return; this.forEach((n) => n.val(newValue));    return this; }
+NodeList.prototype.data = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.dat(key, value));  return this; }
+NodeList.prototype.attr = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.attr(key, value)); return this; }
+NodeList.prototype.prop = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.prop(key, value)); return this; }
+NodeList.prototype.css  = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.css(key, value));  return this; }
 
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
 
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
 Element.prototype.clone = function(deep = true) { let el = this.cloneNode(deep); return el; }
-
-Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).append(this);  return this; }
-Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
-
+Element.prototype.empty = function() { this.innerHTML = ''; return this; }
 // Element.remove() // -- ALREADY EXISTS
-Element.prototype.empty = function() { this.innerHTML = ''; }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // Element.click() // -- ALREADY EXISTS
