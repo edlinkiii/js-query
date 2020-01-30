@@ -98,6 +98,7 @@ Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).appe
 Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
 
 // Element.remove() // -- ALREADY EXISTS
+Element.prototype.empty = function() { this.innerHTML = ''; }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // Element.click() // -- ALREADY EXISTS
@@ -106,7 +107,6 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 
 // COMING SOON...
 // NodeList.prototype.filter
-// Element.prototype.empty
 
 const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())

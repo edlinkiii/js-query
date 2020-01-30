@@ -51,7 +51,7 @@ $q(document).ready(() => {
 
     $newEl = $q().create('p').text('All new element!').prependTo('body');
 
-    $q('#junk').clone().appendTo('body');
+    $q('#junk').clone().attr('id','moreJunk').appendTo('body').empty();
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
