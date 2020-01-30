@@ -29,8 +29,9 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
  */
 const $qa = (selector) => document.querySelectorAll(selector);
 
-Element.prototype.find = function(selector) { return this.querySelector(selector); }
+Element.prototype.find    = function(selector) { return this.querySelector(selector); }
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
+// NodeList.prototype.filter --> COMING SOON...
 
 Element.prototype.next     = function() { return this.nextElementSibling; }
 Element.prototype.prev     = function() { return this.previousElementSibling; }
@@ -103,9 +104,6 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // Element.click() // -- ALREADY EXISTS
 // Element.focus() // -- ALREADY EXISTS
 // Element.blur() // -- ALREADY EXISTS
-
-// COMING SOON...
-// NodeList.prototype.filter
 
 const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
