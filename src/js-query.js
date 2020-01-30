@@ -42,12 +42,12 @@ Element.prototype.next = function() { return this.nextElementSibling; }
 Element.prototype.prev = function() { return this.previousElementSibling; }
 
 Element.prototype.hide   = function() { this.style.display = 'none';    return this; }
-Element.prototype.show   = function() { this.style.display = 'initial'; return this; }
-Element.prototype.toggle = function() { this.style.display = (this.style.display !== 'none') ? 'none' : 'initial' ; return this; }
+Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName); return this; }
+Element.prototype.toggle = function() { this.style.display = (this.style.display !== 'none') ? 'none' : __defaultDisplay(this.tagName) ; return this; }
 
 NodeList.prototype.hide   = function() { this.forEach((n) => n.style.display = 'none');    return this; }
-NodeList.prototype.show   = function() { this.forEach((n) => n.style.display = 'initial'); return this; }
-NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : 'initial'); return this; }
+NodeList.prototype.show   = function() { this.forEach((n) => n.style.display = __defaultDisplay(this.tagName)); return this; }
+NodeList.prototype.toggle = function() { this.forEach((n) => n.style.display = (n.style.display !== 'none') ? 'none' : __defaultDisplay(this.tagName)); return this; }
 
 Element.prototype.text   = function(textString) { if(textString !== undefined) { this.innerText = textString; return this; } else return this.innerText; }
 Element.prototype.html   = function(htmlString) { if(htmlString !== undefined) { this.innerHTML = htmlString; return this; } else return this.innerHTML; }
@@ -183,4 +183,25 @@ const ajax = (options) => {
             reject(false);
         }
     });
+}
+
+const __defaultDisplay = (tag) => {
+    if(!tag) return "none";
+    switch(tag.toLowerCase()) {
+        case "address": case "article": case "aside": case "blockquote": case "body": case "dd": case "details": case "div": case "dl": case "dt": case "fieldset": case "figcaption": case "figure": case "footer": case "form": case "h1": case "h2": case "h3": case "h4": case "h5": case "h6": case "header": case "hr": case "html": case "iframe": case "legend": case "menu": case "nav": case "ol": case "p": case "pre": case "section": case "summary": case "ul": return "block";
+        case "area":case "datalist":case "head":case "link":case "param":case "script":case "style":case "title": return "none";
+        case "img": return "inline-block";
+        case "caption": return "table-caption";
+        case "col": return "table-column";
+        case "colgroup": return "table-column-group";
+        case "li": return "list-item";
+        case "table": return "table";
+        case "tbody": return "table-row-group";
+        case "td": return "table-cell";
+        case "tfoot": return "table-footer-group";
+        case "th": return "table-cell";
+        case "thead": return "table-header-group";
+        case "tr": return "table-row";
+        case "map": case "output": case "q": default: return "inline";
+    }
 }
