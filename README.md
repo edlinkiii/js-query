@@ -23,7 +23,4 @@ el.html('Hello World').addClass('red').toggleClass('bold');
 Unlike jQuery, document.querySelector is **very** strick about beginning an element's id with a letter.
 
 Currently, .filter(), .kids(), and .siblings() return an array, not a NodeList. All operations after using these functions will require handling them as such.
-Example:
-```javascript
-$qa('#list li').filter('.done').forEach((el) => el.hide());
-```
+Example: `$qa('#list li').filter('.done').forEach((el) => el.hide());`
