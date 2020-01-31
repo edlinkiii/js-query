@@ -49,9 +49,11 @@ $q(document).ready(() => {
 
     $secondLi.remove();
 
-    $newEl = $q().create('p').text('All new element!').prependTo('body');
+    $q().create('p').text('All new element!').prependTo('body');
 
     $q('#junk').clone().attr('id','moreJunk').appendTo('body').empty();
+
+    $qa('#junk li').filter('.blue').forEach((el) => el.removeClass('blue'));
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));

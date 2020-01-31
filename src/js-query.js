@@ -31,7 +31,7 @@ const $qa = (selector) => document.querySelectorAll(selector);
 
 Element.prototype.find    = function(selector) { return this.querySelector(selector); }
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
-// NodeList.prototype.filter --> COMING SOON...
+NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
 Element.prototype.next     = function() { return this.nextElementSibling; }
 Element.prototype.prev     = function() { return this.previousElementSibling; }
