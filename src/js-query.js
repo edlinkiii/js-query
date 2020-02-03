@@ -33,16 +33,28 @@ const $qa = (selector) => document.querySelectorAll(selector);
 
 /**
  * Shortcut for element.querySelector().
+ * Similar to jquery.find()
  * 
  * Used to select a single element (eg, '#id') that has descended from a previously selected element.
  * 
  * @param {string}  selector    `CSS` selector for element.
  * @return {element} Returns an element.
- * @example const $paragraph = $el.find('p'); // $el.querySelector('p');
+ * @example const $paragraph = $el.find('p#first'); // $el.querySelector('p#first');
  */
 Element.prototype.find    = function(selector) { return this.querySelector(selector); }
 
+/**
+ * Shortcut for element.querySelectorAll().
+ * Similar to jquery.find()
+ * 
+ * Used to find multiple elements (eg, '.class') that have descended from a previously selected element.
+ * 
+ * @param {string}  selector    `CSS` selector for element.
+ * @return {elementList} Returns an elementList (NodeList).
+ * @example const $paragraphs = $el.findAll('p'); // $el.querySelectorAll('p');
+ */
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
+
 NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
 Element.prototype.next     = function() { return this.nextElementSibling; }
