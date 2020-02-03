@@ -25,7 +25,7 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
  * Adds a jQuery feel to Vanilla JS.
  * Used for multiple elements (eg, '.class').
  * 
- * @param {string}  selector    `CSS` selector for element.
+ * @param {string}  selector    `CSS` selector for elements.
  * @return {elementList} Returns an elementList (NodeList).
  * @example const $listItems = $qa('#list li'); // document.querySelectorAll('#list li');
  */
@@ -49,7 +49,7 @@ Element.prototype.find    = function(selector) { return this.querySelector(selec
  * 
  * Used to find multiple elements (eg, '.class') that have descended from a previously selected element.
  * 
- * @param {string}  selector    `CSS` selector for element.
+ * @param {string}  selector    `CSS` selector for elements.
  * @return {elementList} Returns an elementList (NodeList).
  * @example const $paragraphs = $el.findAll('p'); // $el.querySelectorAll('p');
  */
