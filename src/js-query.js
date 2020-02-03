@@ -20,7 +20,7 @@
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 
 /**
- * Shortcut for document.querySelector().
+ * Shortcut for document.querySelectorAll().
  * 
  * Adds a jQuery feel to Vanilla JS.
  * Used for multiple elements (eg, '.class').
@@ -31,7 +31,17 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
  */
 const $qa = (selector) => document.querySelectorAll(selector);
 
+/**
+ * Shortcut for element.querySelector().
+ * 
+ * Used to select a single element (eg, '#id') that has descended from a previously selected element.
+ * 
+ * @param {string}  selector    `CSS` selector for element.
+ * @return {element} Returns an element.
+ * @example const $paragraph = $el.find('p'); // $el.querySelector('p');
+ */
 Element.prototype.find    = function(selector) { return this.querySelector(selector); }
+
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
 NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
