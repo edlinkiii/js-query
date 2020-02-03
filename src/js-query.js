@@ -13,8 +13,9 @@
  * Adds a jQuery feel to Vanilla JS.
  * Used for a single element (eg, '#id').
  * 
- * @param {string}  selector    `CSS` selector for element.
+ * @param {string}  [selector]    `CSS` selector for element.
  * @return {element} Returns an element.
+ * @example const $el = $q('#list'); // document.querySelector('#list');
  */
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 
@@ -26,6 +27,7 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
  * 
  * @param {string}  selector    `CSS` selector for element.
  * @return {elementList} Returns an elementList (NodeList).
+ * @example const $listItems = $qa('#list li'); // document.querySelectorAll('#list li');
  */
 const $qa = (selector) => document.querySelectorAll(selector);
 
