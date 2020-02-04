@@ -129,8 +129,36 @@ Element.prototype.parents = function(selector) { let arr = [], tagName = '', el 
  */
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
-Element.prototype.kids = function(selector) { if(selector) return Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.childNodes, (child) => child.tagName); }
+/**
+ * Shortcut for element.parentNode.children
+ * Similar to jquery.siblings()
+ * 
+ * Used to select all of the direct descendant elements in the DOM of the ancestor of the selected element, not including the selected element itself.
+ * If the optional selector is passed, only elements that match the selector will be returned.
+ * 
+ * @param {string} [selector] Optional selector to match.
+ * @return  {array} Returns an array of elements.
+ * @example const $supportingParagraphs = $q('article p#first').siblings();
+ * @example const $quotes = $q('article p#first').siblings('blockquote');
+ * @warning This currently returns an array of elements, not a NodeList.
+ * @todo Add optional boolean to return the initially selected element within the array.
+ */
 Element.prototype.siblings = function(selector) { if(selector) return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName); }
+
+/**
+ * Shortcut for element.childNodes
+ * Similar to jquery.children()
+ * 
+ * Used to select all of the direct descendant elements in the DOM of the selected element.
+ * If the optional selector is passed, only elements that match the selector will be returned.
+ * 
+ * @param {string} [selector] Optional selector to match.
+ * @return  {array} Returns an array of elements.
+ * @example const $children = $q('article').kids(); // $el.childNodes;
+ * @example const $paragraphs = $q('article').kids('p');
+ * @warning This currently returns an array of elements, not a NodeList.
+ */
+Element.prototype.kids = function(selector) { if(selector) return Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.childNodes, (child) => child.tagName); }
 
 Element.prototype.hide   = function() { this.style.display = 'none';                                     return this; }
 Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName);             return this; }
