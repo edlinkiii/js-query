@@ -41,7 +41,7 @@ const $qa = (selector) => document.querySelectorAll(selector);
  * @return {element} Returns an element.
  * @example const $paragraph = $el.find('p#first'); // $el.querySelector('p#first');
  */
-Element.prototype.find    = function(selector) { return this.querySelector(selector); }
+Element.prototype.find = function(selector) { return this.querySelector(selector); }
 
 /**
  * Shortcut for element.querySelectorAll().
@@ -68,8 +68,28 @@ Element.prototype.findAll = function(selector) { return this.querySelectorAll(se
  */
 NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
-Element.prototype.next     = function() { return this.nextElementSibling; }
-Element.prototype.prev     = function() { return this.previousElementSibling; }
+/**
+ * Shortcut for element.nextElementSibling.
+ * Similar to jquery.next()
+ * 
+ * Used to select a single element, the element in the DOM that comes after selected element.
+ * 
+ * @return {element} Returns an element.
+ * @example const $secondParagraph = $el.find('p#first').next(); // $el.nextElementSibling;
+ */
+Element.prototype.next = function() { return this.nextElementSibling; }
+
+/**
+ * Shortcut for element.previousElementSibling.
+ * Similar to jquery.prev()
+ * 
+ * Used to select a single element, the element in the DOM that came before selected element.
+ * 
+ * @return {element} Returns an element.
+ * @example const $firstParagraph = $el.find('p#second').prev(); // $el.previousElementSibling;
+ */
+Element.prototype.prev = function() { return this.previousElementSibling; }
+
 Element.prototype.parent   = function() { return this.parentElement; }
 Element.prototype.parents  = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
 Element.prototype.closest  = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
