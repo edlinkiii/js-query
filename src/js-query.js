@@ -1,22 +1,9 @@
 /**
  * js-query -- Vanilla JS shortcuts for recovering jQuery users.
  * 
- * This project in no way is meant to fully replace everything jQuery can do.
- * At most, it offers a jQuery feel (shorthand) to Vanilla JavaScript.
- * 
  * @author Ed Link III.
  */
 
-/**
- * Shortcut for document.querySelector().
- * 
- * Adds a jQuery feel to Vanilla JS.
- * Used for a single element (eg, '#id').
- * 
- * @param {string}  [selector]    `CSS` selector for element.
- * @return {element} Returns an element.
- * @example const $el = $q('#list'); // document.querySelector('#list');
- */
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 
 /**
