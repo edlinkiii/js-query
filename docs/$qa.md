@@ -1,6 +1,6 @@
 # $qa(selector)
 Used for selecting a single element (eg, '#id').
-Shortcut for document.querySelector()
+Shortcut for document.querySelectorAll()
 
 ### $qa(selector)
 When a valid selector is passed, all matching elements are returned as an `elementList`
