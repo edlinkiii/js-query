@@ -12,16 +12,6 @@ Element.prototype.findAll = function(selector) { return this.querySelectorAll(se
 NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
 Element.prototype.next = function() { return this.nextElementSibling; }
-
-/**
- * Shortcut for element.previousElementSibling.
- * Similar to jquery.prev()
- * 
- * Used to select a single element, the element in the DOM that came before selected element.
- * 
- * @return {element} Returns an element.
- * @example const $firstParagraph = $el.find('p#second').prev(); // $el.previousElementSibling;
- */
 Element.prototype.prev = function() { return this.previousElementSibling; }
 
 /**
