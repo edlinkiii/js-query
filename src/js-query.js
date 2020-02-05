@@ -7,16 +7,6 @@
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 const $qa = (selector) => document.querySelectorAll(selector);
 
-/**
- * Shortcut for element.querySelector().
- * Similar to jquery.find()
- * 
- * Used to select a single element (eg, '#id') that has descended from a previously selected element.
- * 
- * @param {string}  selector    `CSS` selector for element.
- * @return {element} Returns an element.
- * @example const $paragraph = $el.find('p#first'); // $el.querySelector('p#first');
- */
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
 
 /**
