@@ -1,5 +1,5 @@
 # $qa(selector)
-Used for selecting a single element (eg, '#id').
+Used for selecting multiple elements (eg, '.class').
 Shortcut for document.querySelectorAll()
 
 ### $qa(selector)
