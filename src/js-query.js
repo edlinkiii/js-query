@@ -9,18 +9,6 @@ const $qa = (selector) => document.querySelectorAll(selector);
 
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
-
-/**
- * Filter a currently selected NodeList.
- * Similar to jquery.filter()
- * 
- * Used to eliminate unwanted elements from a NodeList.
- * 
- * @param {string} selector `CSS` selector for element.
- * @return {array} Returns an array of elements.
- * @example const $items = $qa('ul li'); const $redItems = $el.filter('.red');
- * @warning This currently returns an array of elements, not a NodeList.
- */
 NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
 /**
