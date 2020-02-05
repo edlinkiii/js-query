@@ -8,17 +8,6 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
 const $qa = (selector) => document.querySelectorAll(selector);
 
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
-
-/**
- * Shortcut for element.querySelectorAll().
- * Similar to jquery.find()
- * 
- * Used to find multiple elements (eg, '.class') that have descended from a previously selected element.
- * 
- * @param {string} selector `CSS` selector for elements.
- * @return {elementList} Returns an elementList (NodeList).
- * @example const $paragraphs = $el.findAll('p'); // $el.querySelectorAll('p');
- */
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
 
 /**
