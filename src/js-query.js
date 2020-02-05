@@ -11,15 +11,6 @@ Element.prototype.find = function(selector) { return this.querySelector(selector
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
 NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
 
-/**
- * Shortcut for element.nextElementSibling.
- * Similar to jquery.next()
- * 
- * Used to select a single element, the element in the DOM that comes after selected element.
- * 
- * @return {element} Returns an element.
- * @example const $secondParagraph = $el.find('p#first').next(); // $el.nextElementSibling;
- */
 Element.prototype.next = function() { return this.nextElementSibling; }
 
 /**
