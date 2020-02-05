@@ -5,17 +5,6 @@
  */
 
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
-
-/**
- * Shortcut for document.querySelectorAll().
- * 
- * Adds a jQuery feel to Vanilla JS.
- * Used for multiple elements (eg, '.class').
- * 
- * @param {string}  selector    `CSS` selector for elements.
- * @return {elementList} Returns an elementList (NodeList).
- * @example const $listItems = $qa('#list li'); // document.querySelectorAll('#list li');
- */
 const $qa = (selector) => document.querySelectorAll(selector);
 
 /**
