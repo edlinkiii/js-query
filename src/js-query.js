@@ -281,7 +281,8 @@ const ajax = (options) => {
                         resolve(true);
                     }
                     else {
-                        throw '['+ this.status +': '+ this.statusText +'] '+ this.responseURL +'\n'+ this.responseText;
+                        opt.error('['+ this.status +': '+ this.statusText +'] '+ this.responseURL +'\n'+ this.responseText);
+                        reject(false);
                     }
                 }
             }
