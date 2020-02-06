@@ -76,7 +76,7 @@ Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
 
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
 Element.prototype.clone = function(deep = true) { let el = this.cloneNode(deep); return el; }
-Element.prototype.empty = function() { this.innerHTML = ''; return this; }
+Element.prototype.empty = function() { this.childNodes.forEach((el) => el.remove()); return this; }
 // Element.remove() // -- ALREADY EXISTS
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
