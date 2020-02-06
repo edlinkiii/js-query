@@ -79,6 +79,9 @@ Element.prototype.clone = function(deep = true) { let el = this.cloneNode(deep);
 Element.prototype.empty = function() { this.childNodes.forEach((el) => el.remove()); return this; }
 // Element.remove() // -- ALREADY EXISTS
 
+NodeList.prototype.empty  = function() { this.forEach((n) => n.empty());  return this; }
+NodeList.prototype.remove = function() { this.forEach((n) => n.remove()); return; }
+
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // Element.click() // -- ALREADY EXISTS
 // Element.focus() // -- ALREADY EXISTS
