@@ -17,6 +17,7 @@ Element.prototype.siblings = function(selector) { if(selector) return Array.prot
 
 Element.prototype.parent = function() { return this.parentElement; }
 Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
+Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 
 /**
  * Similar to jquery.closest()
