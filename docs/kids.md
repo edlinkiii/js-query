@@ -2,7 +2,7 @@
 Used to select the direct nested (child) elements of the selected element.
 
 ### element.kids()
-Returns an `Array` of all elements nested in the selected element.
+Returns a `NodeList` of all elements nested in the selected element.
 
 ```javascript
 // const $article = $paragraph.parentElement; // --> Vanilla JS
@@ -15,7 +15,7 @@ const $articleElements = $article.kids();
 ```
 
 ### element.kids(selector)
-Returns an `Array` of all nested elements that match the passed selector.
+Returns a `NodeList` of all nested elements that match the passed selector.
 
 ```javascript
 // const $paragraphs = $article.children('p'); // --> jQuery
