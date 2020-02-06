@@ -15,30 +15,7 @@ Element.prototype.next = function() { return this.nextElementSibling; }
 Element.prototype.prev = function() { return this.previousElementSibling; }
 Element.prototype.siblings = function(selector) { if(selector) return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName); }
 
-/**
- * Shortcut for element.parentElement.
- * Similar to jquery.parent()
- * 
- * Used to select a single element, the element in the DOM that is the direct ancestor of the selected element.
- * 
- * @return {element} Returns an element.
- * @example const $article = $q('p#first').parent(); // $el.parentElement;
- */
 Element.prototype.parent = function() { return this.parentElement; }
-
-/**
- * Similar to jquery.parents()
- * 
- * Used to select all of the ancestral elements in the DOM of the selected element.
- * If the optional selector is passed, only ancestral elements that match the selector will be returned.
- * Elements are arranged in order from closest ([0]) to farthest
- * 
- * @param {string} [selector] Optional selector to match.
- * @return  {array} Returns an array of elements.
- * @example const $ancestor = $q('p#first').parents();
- * @example const $sections = $q('p#first').parents('section');
- * @warning This currently returns an array of elements, not a NodeList.
- */
 Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
 
 /**
