@@ -9,14 +9,14 @@ const $qa = (selector) => document.querySelectorAll(selector);
 
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
-NodeList.prototype.filter = function(selector) { return Array.prototype.filter.call(this, (el) => el.matches(selector)); }
+NodeList.prototype.filter = function(selector) { return __toNodeList(Array.prototype.filter.call(this, (el) => el.matches(selector))); }
 
 Element.prototype.next = function() { return this.nextElementSibling; }
 Element.prototype.prev = function() { return this.previousElementSibling; }
-Element.prototype.siblings = function(selector) { if(selector) return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName); }
-Element.prototype.kids = function(selector) { if(selector) return Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector)); return Array.prototype.filter.call(this.childNodes, (child) => child.tagName); }
+Element.prototype.siblings = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName)); }
+Element.prototype.kids = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName)); }
 Element.prototype.parent = function() { return this.parentElement; }
-Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
+Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __toNodeList(arr); }
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
@@ -83,10 +83,6 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // Element.click() // -- ALREADY EXISTS
 // Element.focus() // -- ALREADY EXISTS
 // Element.blur() // -- ALREADY EXISTS
-
-const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
-const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
-const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
 
 function __eventHandler(e) {
     for(let selector in this.__events[e.type]) {
@@ -172,6 +168,11 @@ const ajax = (options) => {
     });
 }
 
+const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
+const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
+const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
+const __buildElementPath = (el) => { let p = el.parentNode; if(p === document) { return el.tagName; }  return __buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, el)+1) + ")"; } // original code by: apsillers @ stackoverflow.com
+const __toNodeList = (arr) => { return document.querySelectorAll(arr.map((el) => __buildElementPath(el)).join(",")); } // original code by: apsillers @ stackoverflow.com
 const __defaultDisplay = (tag) => {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
