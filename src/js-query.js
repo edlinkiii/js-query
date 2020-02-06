@@ -28,13 +28,13 @@ NodeList.prototype.hide   = function() { this.forEach((n) => n.hide());   return
 NodeList.prototype.show   = function() { this.forEach((n) => n.show());   return this; }
 NodeList.prototype.toggle = function() { this.forEach((n) => n.toggle()); return this; }
 
-Element.prototype.text   = function(textString) { if(textString === undefined) return this.textContent; this.textContent = textString; return this; }
-Element.prototype.html   = function(htmlString) { if(htmlString === undefined) return this.innerHTML;   this.innerHTML = htmlString;   return this; }
-Element.prototype.markup = function(htmlString) { if(htmlString === undefined) return this.outerHTML;   this.outerHTML = htmlString;   return this; }
+Element.prototype.text   = function(str) { if(str === undefined) return this.textContent; this.textContent = str; return this; }
+Element.prototype.html   = function(str) { if(str === undefined) return this.innerHTML;   this.innerHTML = str;   return this; }
+Element.prototype.markup = function(str) { if(str === undefined) return this.outerHTML;   this.outerHTML = str;   return this; }
 
-NodeList.prototype.text   = function(textString) { if(textString === undefined) return; this.forEach((n) => n.text(textString));   return this; }
-NodeList.prototype.html   = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.html(htmlString));   return this; }
-NodeList.prototype.markup = function(htmlString) { if(htmlString === undefined) return; this.forEach((n) => n.markup(htmlString)); return this; }
+NodeList.prototype.text   = function(str) { if(str === undefined) return; this.forEach((n) => n.text(str));   return this; }
+NodeList.prototype.html   = function(str) { if(str === undefined) return; this.forEach((n) => n.html(str));   return this; }
+NodeList.prototype.markup = function(str) { if(str === undefined) return; this.forEach((n) => n.markup(str)); return this; }
 
 Element.prototype.before  = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'beforebegin', obj); return this; }
 Element.prototype.prepend = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'afterbegin', obj);  return this; }
