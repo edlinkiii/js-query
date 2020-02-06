@@ -18,18 +18,6 @@ Element.prototype.siblings = function(selector) { if(selector) return Array.prot
 Element.prototype.parent = function() { return this.parentElement; }
 Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return arr; }
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
-
-/**
- * Similar to jquery.closest()
- * 
- * Used to select a single element, the element in the DOM that is the direct ancestor of the selected element.
- * If the optional selector is passed, the first ancestral element (up the DOM tree) that matches the selector will be returned.
- * 
- * @param {string} [selector] Optional selector to match.
- * @return {element} Returns an element.
- * @example const $article = $q('p#first').closest(); // $el.parentElement;
- * @example const $article = $q('p#first').closest('article');
- */
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
 /**
