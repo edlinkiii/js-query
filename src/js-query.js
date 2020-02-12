@@ -48,10 +48,10 @@ Element.prototype.after   = function(obj) { if(obj === undefined) return; __inse
 Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).append(this);  return this; }
 Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
 
-NodeList.prototype.before  = function(obj) { if(obj === undefined) return; this.forEach((n) => n.before(obj));  return this; }
-NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; this.forEach((n) => n.prepend(obj)); return this; }
-NodeList.prototype.append  = function(obj) { if(obj === undefined) return; this.forEach((n) => n.append(obj));  return this; }
-NodeList.prototype.after   = function(obj) { if(obj === undefined) return; this.forEach((n) => n.after(obj));   return this; }
+NodeList.prototype.before  = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.before(obj));  return __toNodeList(arr); }
+NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.prepend(obj)); return __toNodeList(arr); }
+NodeList.prototype.append  = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.append(obj));  return __toNodeList(arr); }
+NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.after(obj));   return __toNodeList(arr); }
 
 Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
 

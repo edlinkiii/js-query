@@ -19,7 +19,7 @@ $q(document).ready(() => {
     
     $qa('ul li')[4].after('<li>anther one!</li>').addClass('blue');
 
-    $qa('ul li').hide();
+    // $qa('ul li').hide();
 
     $q('#stuff').markup('<h6>A new thing!</h6>');
 
@@ -52,6 +52,8 @@ $q(document).ready(() => {
     $q('#junk').clone().attr('id','moreJunk').appendTo('body').empty();
 
     $qa('#junk li').filter('.blue').forEach((el) => el.removeClass('blue'));
+
+    console.log($qa('#junk > li').after('<li>...</li>').css('color','turquoise'));
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
@@ -64,7 +66,7 @@ $q(document).on('change','#type-it', (e) => console.log('change', e.target.value
 $q(document).on('input','#type-it',  (e) => console.log('input', e.target.value));
 
 setTimeout(() => {
-    $qa('ul li').toggle();
+    // $qa('ul li').toggle();
     $q('#type-it').click();
     $q('#type-it').focus();
     $q('#type-it').blur();
