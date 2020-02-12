@@ -53,7 +53,8 @@ $q(document).ready(() => {
 
     $qa('#junk li').filter('.blue').forEach((el) => el.removeClass('blue'));
 
-    console.log($qa('#junk > li').after('<li>...</li>').css('color','turquoise'));
+    // console.log($qa('#junk > li').after('<li>...</li>').css('color','turquoise'));
+    console.log($q().create('li').text('...').insertAfter('#junk > li').css('color','turquoise'));
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));

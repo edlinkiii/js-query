@@ -50,11 +50,10 @@ NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let a
 
 // --- documentation needed for the below --- //
 
-Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).append(this);  return this; }
-Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
-
-Element.prototype.insertBefore = function(targetSelector) { $q(targetSelector).before(this); return this; }
-Element.prototype.insertAfter  = function(targetSelector) { $q(targetSelector).after(this);  return this; }
+Element.prototype.appendTo     = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.append(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.prependTo    = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.insertBefore = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.insertAfter  = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 
 Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
 
