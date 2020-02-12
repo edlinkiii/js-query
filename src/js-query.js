@@ -15,6 +15,8 @@ Element.prototype.next = function() { return this.nextElementSibling; }
 Element.prototype.prev = function() { return this.previousElementSibling; }
 Element.prototype.siblings = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => child !== this && child.tagName)); }
 Element.prototype.kids = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName)); }
+Element.prototype.firstKid = function() { return Array.prototype.filter.call(this.childNodes, (child) => child.tagName)[0]; }
+Element.prototype.lastKid = function() { let arr = Array.prototype.filter.call(this.childNodes, (child) => child.tagName); return arr[arr.length-1]; }
 Element.prototype.parent = function() { return this.parentElement; }
 Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __toNodeList(arr); }
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }

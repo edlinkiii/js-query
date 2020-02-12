@@ -40,6 +40,8 @@ $q(document).ready(() => {
     console.log($q('#sixth').closest('body'));
 
     console.log($q('#junk').kids());
+    console.log($q('#junk').firstKid());
+    console.log($q('#junk').lastKid());
     console.log($q('ul').kids('.red'));
 
     console.log($q('li.red').siblings());
