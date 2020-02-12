@@ -53,8 +53,6 @@ Element.prototype.prependTo    = function(selector) { let arr = Array.from($qa(s
 Element.prototype.insertBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 Element.prototype.insertAfter  = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 
-// --- documentation needed for the below --- //
-
 Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
 
 Element.prototype.addClass    = function(newClass)  { this.classList.add(newClass);     return this; }
@@ -64,6 +62,8 @@ Element.prototype.toggleClass = function(thisClass) { this.classList.toggle(this
 NodeList.prototype.addClass    = function(newClass)  { this.forEach((n) => n.addClass(newClass));     return this; }
 NodeList.prototype.removeClass = function(oldClass)  { this.forEach((n) => n.removeClass(oldClass));  return this; }
 NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.toggleClass(thisClass)); return this; }
+
+// --- documentation needed for the below --- //
 
 Element.prototype.val  = function(newValue)   { if(newValue === undefined) return this.value;                  this.value = newValue;                return this; }
 Element.prototype.data = function(key, value) { if(value === undefined)    return this.dataset[key];           this.dataset[key] = value;            return this; }
