@@ -10,5 +10,5 @@ Returns either the newly created element or a `NodeList` of cloned elements.
 ```javascript
 // Vanilla // docuement.querySelector('#target').insertAdjacentElement('afterend', document.createElement('p'));
 // jQuery  // $.add('p').insertAfter('#target');
-$q().add('p').insertAfter('#target');
+$q().create('p').insertAfter('#target');
 ```
