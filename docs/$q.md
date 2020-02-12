@@ -7,7 +7,7 @@ When no selector is passed, `document` is returned.
 
 ### $q(selector)
 When a valid selector is passed, the selected element is returned.
-If an element is not found matching the selector, `null` is returned.
+If an element is not found matching the selector, empty `NodeList` is returned. (Modified to eliminate errors caused by returning `null`)
 If multiple matching elements exist, only the first one is returned.
 
 ```javascript
