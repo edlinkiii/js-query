@@ -47,7 +47,7 @@ $q(document).ready(() => {
 
     $secondLi.remove();
 
-    $q().create('p').text('All new element!').prependTo('body');
+    $q().create('p').text('All new element!').insertAfter('#junk').addClass('my-class');
 
     $q('#junk').clone().attr('id','moreJunk').appendTo('body').empty();
 

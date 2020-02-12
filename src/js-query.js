@@ -53,6 +53,9 @@ NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let a
 Element.prototype.appendTo  = function(targetSelector) { $q(targetSelector).append(this);  return this; }
 Element.prototype.prependTo = function(targetSelector) { $q(targetSelector).prepend(this); return this; }
 
+Element.prototype.insertBefore = function(targetSelector) { $q(targetSelector).before(this); return this; }
+Element.prototype.insertAfter  = function(targetSelector) { $q(targetSelector).after(this);  return this; }
+
 Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
 
 Element.prototype.addClass    = function(newClass)  { this.classList.add(newClass);     return this; }
