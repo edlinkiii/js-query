@@ -26,9 +26,6 @@ $q(document).ready(() => {
     let el = document.createElement('p');
     el.text('Hi there!');
 
-    let $pee = $q('ul').before(el); console.log($pee);
-    let $lee = $q('ul').append('<li>test</li>'); console.log($lee);
-
     $q('ul').css('border', '1px solid yellow').css('border-radius', '5px');
     console.log($q('ul').css('border-bottom-color'));
 
