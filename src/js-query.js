@@ -48,12 +48,12 @@ NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; let a
 NodeList.prototype.append  = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.append(obj));  return __toNodeList(arr); }
 NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.after(obj));   return __toNodeList(arr); }
 
-// --- documentation needed for the below --- //
+Element.prototype.appendTo     = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.append(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.prependTo    = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.insertBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.insertAfter  = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 
-Element.prototype.appendTo     = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.append(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
-Element.prototype.prependTo    = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
-Element.prototype.insertBefore = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
-Element.prototype.insertAfter  = function(targetSelector) { let arr = Array.from($qa(targetSelector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+// --- documentation needed for the below --- //
 
 Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
 
