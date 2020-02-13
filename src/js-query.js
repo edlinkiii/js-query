@@ -81,7 +81,7 @@ Element.prototype.clone = function(deep = false) { let el = this.cloneNode(deep)
 
 // --- documentation needed for the below --- //
 
-Element.prototype.empty = function() { this.childNodes.forEach((el) => el.remove()); return this; }
+Element.prototype.empty = function() { this.innerHTML = ''; return this; }
 // Element.remove() // -- ALREADY EXISTS
 
 NodeList.prototype.empty  = function() { this.forEach((n) => n.empty());  return this; }
