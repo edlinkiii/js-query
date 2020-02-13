@@ -85,15 +85,13 @@ Element.prototype.empty = function() { this.innerHTML = ''; return this; }
 NodeList.prototype.empty  = function() { this.forEach((n) => n.empty());  return this; }
 NodeList.prototype.remove = function() { this.forEach((n) => n.remove()); return; }
 
+Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
+Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
+
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // Element.click() // -- ALREADY EXISTS
 // Element.focus() // -- ALREADY EXISTS
 // Element.blur() // -- ALREADY EXISTS
-
-// --- documentation needed for the below --- //
-
-Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
-Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
 
 function __eventHandler(e) {
     for(let selector in this.__events[e.type]) {
