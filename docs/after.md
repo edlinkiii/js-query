@@ -1,6 +1,7 @@
 # after(string|element)
 Used to add text or an element after the selected element or each of the elements of a NodeList.
 Shortcut for element.insertAdjacentHTML('afterend') || element.insertAdjacentElement('afterend')
+Similar to [insertAfter()](./insertAfter.md)
 
 ### element.after(string)
 Parses the string as HTML and adds it after the selected element as a sibling.

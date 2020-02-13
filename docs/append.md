@@ -1,6 +1,7 @@
 # append(string|element)
 Used to add text or an element as the first child of the selected element or each of the elements of a NodeList.
 Shortcut for element.insertAdjacentHTML('afterbegin') || element.insertAdjacentElement('afterbegin')
+Similar to [appendTo()](./appendTo.md)
 
 ### element.append(string)
 Parses the string as HTML and adds it as the first child of the selected element.

@@ -1,6 +1,7 @@
 # prepend(string|element)
 Used to add text or an element as the last child of the selected element or each of the elements of a NodeList.
 Shortcut for element.insertAdjacentHTML('beforeend') || element.insertAdjacentElement('beforeend')
+Similar to [prependTo()](./prependTo.md)
 
 ### element.prepend(string)
 Parses the string as HTML and adds it as the last child of the selected element.

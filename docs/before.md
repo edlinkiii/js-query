@@ -1,6 +1,7 @@
 # before(string|element)
 Used to add text or an element before the selected element or each of the elements of a NodeList.
 Shortcut for element.insertAdjacentHTML('beforebegin') || element.insertAdjacentElement('beforebegin')
+Similar to [insertBefore()](./insertBefore.md)
 
 ### element.before(string)
 Parses the string as HTML and adds it before the selected element as a sibling.
