@@ -63,8 +63,6 @@ NodeList.prototype.addClass    = function(newClass)  { this.forEach((n) => n.add
 NodeList.prototype.removeClass = function(oldClass)  { this.forEach((n) => n.removeClass(oldClass));  return this; }
 NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.toggleClass(thisClass)); return this; }
 
-// --- documentation needed for the below --- //
-
 Element.prototype.val  = function(newValue)   { if(newValue === undefined) return this.value;                  this.value = newValue;                return this; }
 Element.prototype.data = function(key, value) { if(value === undefined)    return this.dataset[key];           this.dataset[key] = value;            return this; }
 Element.prototype.attr = function(key, value) { if(value === undefined)    return this.getAttribute(key);      this.setAttribute(key, value);        return this; }
@@ -76,6 +74,8 @@ NodeList.prototype.data = function(key, value) { if(value === undefined)    retu
 NodeList.prototype.attr = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.attr(key, value)); return this; }
 NodeList.prototype.prop = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.prop(key, value)); return this; }
 NodeList.prototype.css  = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.css(key, value));  return this; }
+
+// --- documentation needed for the below --- //
 
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
