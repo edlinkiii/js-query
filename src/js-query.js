@@ -78,8 +78,9 @@ NodeList.prototype.css  = function(key, value) { if(value === undefined)    retu
 // --- documentation needed for the below --- //
 
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
-Element.prototype.offset   = function() { return this.getBoundingClientRect(); }
+Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
 
+HTMLDocument.prototype.add = function(tagName) { return document.createElement(tagName); }
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
 Element.prototype.clone = function(deep = true) { let el = this.cloneNode(deep); return el; }
 Element.prototype.empty = function() { this.childNodes.forEach((el) => el.remove()); return this; }
