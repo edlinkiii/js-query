@@ -75,14 +75,12 @@ NodeList.prototype.attr = function(key, value) { if(value === undefined)    retu
 NodeList.prototype.prop = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.prop(key, value)); return this; }
 NodeList.prototype.css  = function(key, value) { if(value === undefined)    return; this.forEach((n) => n.css(key, value));  return this; }
 
-// --- documentation needed for the below --- //
-
-Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
-Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
-
 HTMLDocument.prototype.add = function(tagName) { return document.createElement(tagName); }
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
 Element.prototype.clone = function(deep = false) { let el = this.cloneNode(deep); return el; }
+
+// --- documentation needed for the below --- //
+
 Element.prototype.empty = function() { this.childNodes.forEach((el) => el.remove()); return this; }
 // Element.remove() // -- ALREADY EXISTS
 
@@ -93,6 +91,9 @@ EventTarget.prototype.change = function() { return this.dispatchEvent(new Event(
 // Element.click() // -- ALREADY EXISTS
 // Element.focus() // -- ALREADY EXISTS
 // Element.blur() // -- ALREADY EXISTS
+
+Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
+Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
 
 function __eventHandler(e) {
     for(let selector in this.__events[e.type]) {
