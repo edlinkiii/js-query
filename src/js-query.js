@@ -79,13 +79,13 @@ HTMLDocument.prototype.add = function(tagName) { return document.createElement(t
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
 Element.prototype.clone = function(deep = false) { let el = this.cloneNode(deep); return el; }
 
-// --- documentation needed for the below --- //
-
 Element.prototype.empty = function() { this.innerHTML = ''; return this; }
 // Element.remove() // -- ALREADY EXISTS
 
 NodeList.prototype.empty  = function() { this.forEach((n) => n.empty());  return this; }
 NodeList.prototype.remove = function() { this.forEach((n) => n.remove()); return; }
+
+// --- documentation needed for the below --- //
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // Element.click() // -- ALREADY EXISTS
