@@ -1,4 +1,4 @@
-$q(document).ready(() => {
+$q().ready(() => {
     $q('#stuff').hide();
 
     $q('#place').html($q('p').parent().html()).find('p').prepend('stuff & ').append(' and some junk!').addClass('bold');
@@ -59,12 +59,12 @@ $q(document).ready(() => {
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
 
-$q(document).on('click','#type-it',  (e) => console.log('click', e.target.value));
-$q(document).on('click','#type-it',  (e) => console.log('click(2)', e.target.value));
-$q(document).on('focus','#type-it',  (e) => console.log('focus', e.target.value));
-$q(document).on('blur','#type-it',   (e) => console.log('blur', e.target.value));
-$q(document).on('change','#type-it', (e) => console.log('change', e.target.value));
-$q(document).on('input','#type-it',  (e) => console.log('input', e.target.value));
+$q().on('click','#type-it',  (e) => console.log('click', e.target.value));
+$q().on('click','#type-it',  (e) => console.log('click(2)', e.target.value));
+$q().on('focus','#type-it',  (e) => console.log('focus', e.target.value));
+$q().on('blur','#type-it',   (e) => console.log('blur', e.target.value));
+$q().on('change','#type-it', (e) => console.log('change', e.target.value));
+$q().on('input','#type-it',  (e) => console.log('input', e.target.value));
 
 setTimeout(() => {
     // $qa('ul li').toggle();
