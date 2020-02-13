@@ -82,7 +82,7 @@ Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(
 
 HTMLDocument.prototype.add = function(tagName) { return document.createElement(tagName); }
 HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
-Element.prototype.clone = function(deep = true) { let el = this.cloneNode(deep); return el; }
+Element.prototype.clone = function(deep = false) { let el = this.cloneNode(deep); return el; }
 Element.prototype.empty = function() { this.childNodes.forEach((el) => el.remove()); return this; }
 // Element.remove() // -- ALREADY EXISTS
 
