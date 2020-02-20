@@ -159,7 +159,7 @@ const ajax = (options) => {
                         resolve(true);
                     }
                     else {
-                        opt.error('['+ this.status +': '+ this.statusText +'] '+ this.responseURL +'\n'+ this.responseText);
+                        opt.error('['+ this.status +': '+ this.statusText +'] '+ this.responseURL +'\n'+ this.responseText, this);
                         reject(false);
                     }
                 }
