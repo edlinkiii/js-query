@@ -11,7 +11,7 @@ If an element is not found matching the selector, `null` is returned.
 If multiple matching elements exist, only the first one is returned.
 
 ```javascript
-// const $list = document.querySelector('#list'); // --> Vanilla JS
-// const $list = $('#list'); // --> jQuery
+// Vanilla // const $list = document.querySelector('#list');
+// jQuery  // const $list = $('#list');
 const $list = $q('#list');
 ```
