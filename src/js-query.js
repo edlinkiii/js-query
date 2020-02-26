@@ -4,7 +4,7 @@
  * @author Ed Link III.
  */
 
-const $q = (selector) => { if(selector === document || !selector) return document; let nodes = document.querySelectorAll(selector); return (nodes.length > 0) ? nodes[0] : nodes; }
+const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 const $qa = (selector) => document.querySelectorAll(selector);
 
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
