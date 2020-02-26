@@ -53,7 +53,10 @@ Element.prototype.prependTo    = function(selector) { let arr = Array.from($qa(s
 Element.prototype.insertBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 Element.prototype.insertAfter  = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 
-Element.prototype.hasClass    = function(thisClass) { return this.classList.contains(thisClass); }
+Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
+Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
+
+Element.prototype.hasClass = function(thisClass) { return this.classList.contains(thisClass); }
 
 Element.prototype.addClass    = function(newClass)  { this.classList.add(newClass);     return this; }
 Element.prototype.removeClass = function(oldClass)  { this.classList.remove(oldClass);  return this; }
