@@ -185,6 +185,8 @@ const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. subs
 const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
 const __buildElementPath = (el) => { let p = el.parentNode; if(p === document) { return el.tagName; }  return __buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, el)+1) + ")"; } // original code by: apsillers @ stackoverflow.com
 const __toNodeList = (arr) => { return document.querySelectorAll(arr.map((el) => __buildElementPath(el)).join(",")); } // original code by: apsillers @ stackoverflow.com
+const __FPS = 1000 / 60;
+const __animate = (func) => { if(func()) { setTimeout(() => { __animate(func); }, __FPS); } }
 const __defaultDisplay = (tag) => {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
