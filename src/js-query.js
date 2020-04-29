@@ -6,7 +6,7 @@
 
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 const $qa = (selector) => document.querySelectorAll(selector);
-const $js = jsQuery = (selector) => new JS({ selector: selector });
+const $js = jsQuery = (selector) => new JSQuery({ selector: selector });
 
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
@@ -23,13 +23,13 @@ Element.prototype.parents = function(selector) { let arr = [], tagName = '', el 
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
-Element.prototype.hide   = function() { this.style.display = 'none';                                     return this; }
-Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName);             return this; }
-Element.prototype.toggle = function() { if(this.style.display !== 'none') this.hide(); else this.show(); return this; }
+Element.prototype.hide = function() { return JSQuery.$hide(this); }
+Element.prototype.show = function(displayType) { return JSQuery.$show(this, displayType); }
+Element.prototype.toggle = function(displayType) { return JSQuery.$toggle(this, displayType); }
 
-NodeList.prototype.hide   = function() { this.forEach((n) => n.hide());   return this; }
-NodeList.prototype.show   = function() { this.forEach((n) => n.show());   return this; }
-NodeList.prototype.toggle = function() { this.forEach((n) => n.toggle()); return this; }
+NodeList.prototype.hide = function() { return JSQuery.$hide(this); }
+NodeList.prototype.show = function(displayType) { return JSQuery.$show(this, displayType); }
+NodeList.prototype.toggle = function(displayType) { return JSQuery.$toggle(this, displayType); }
 
 Element.prototype.text   = function(str) { if(str === undefined) return this.textContent; this.textContent = str; return this; }
 Element.prototype.html   = function(str) { if(str === undefined) return this.innerHTML;   this.innerHTML = str;   return this; }
@@ -57,15 +57,15 @@ Element.prototype.injectAfter  = function(selector) { let arr = Array.from($qa(s
 Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
 Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
 
-Element.prototype.hasClass = function(thisClass) { return JS.$hasClass(this, thisClass); }
+Element.prototype.hasClass = function(thisClass) { return JSQuery.$hasClass(this, thisClass); }
 
-Element.prototype.addClass = function(thisClass) { return JS.$addClass(this, thisClass); }
-Element.prototype.removeClass = function(thisClass) { return JS.$removeClass(this, thisClass); }
-Element.prototype.toggleClass = function(thisClass) { return JS.$toggleClass(this, thisClass); }
+Element.prototype.addClass = function(thisClass) { return JSQuery.$addClass(this, thisClass); }
+Element.prototype.removeClass = function(thisClass) { return JSQuery.$removeClass(this, thisClass); }
+Element.prototype.toggleClass = function(thisClass) { return JSQuery.$toggleClass(this, thisClass); }
 
-NodeList.prototype.addClass = function(thisClass) { return JS.$addClass(this, thisClass); }
-NodeList.prototype.removeClass = function(thisClass) { return JS.$removeClass(this, thisClass); }
-NodeList.prototype.toggleClass = function(thisClass) { return JS.$toggleClass(this, thisClass); }
+NodeList.prototype.addClass = function(thisClass) { return JSQuery.$addClass(this, thisClass); }
+NodeList.prototype.removeClass = function(thisClass) { return JSQuery.$removeClass(this, thisClass); }
+NodeList.prototype.toggleClass = function(thisClass) { return JSQuery.$toggleClass(this, thisClass); }
 
 Element.prototype.val  = function(newValue)   { if(newValue === undefined) return this.value;                  this.value = newValue;                return this; }
 Element.prototype.data = function(key, value) { if(value === undefined)    return this.dataset[key];           this.dataset[key] = value;            return this; }
