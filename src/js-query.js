@@ -6,6 +6,7 @@
 
 const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
 const $qa = (selector) => document.querySelectorAll(selector);
+const $js = jsQuery = (selector) => new JS({ selector: selector });
 
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
@@ -56,15 +57,15 @@ Element.prototype.injectAfter  = function(selector) { let arr = Array.from($qa(s
 Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
 Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
 
-Element.prototype.hasClass = function(thisClass) { return this.classList.contains(thisClass); }
+Element.prototype.hasClass = function(thisClass) { return JS.$hasClass(this, thisClass); }
 
-Element.prototype.addClass    = function(newClass)  { this.classList.add(newClass);     return this; }
-Element.prototype.removeClass = function(oldClass)  { this.classList.remove(oldClass);  return this; }
-Element.prototype.toggleClass = function(thisClass) { this.classList.toggle(thisClass); return this; }
+Element.prototype.addClass = function(thisClass) { return JS.$addClass(this, thisClass); }
+Element.prototype.removeClass = function(thisClass) { return JS.$removeClass(this, thisClass); }
+Element.prototype.toggleClass = function(thisClass) { return JS.$toggleClass(this, thisClass); }
 
-NodeList.prototype.addClass    = function(newClass)  { this.forEach((n) => n.addClass(newClass));     return this; }
-NodeList.prototype.removeClass = function(oldClass)  { this.forEach((n) => n.removeClass(oldClass));  return this; }
-NodeList.prototype.toggleClass = function(thisClass) { this.forEach((n) => n.toggleClass(thisClass)); return this; }
+NodeList.prototype.addClass = function(thisClass) { return JS.$addClass(this, thisClass); }
+NodeList.prototype.removeClass = function(thisClass) { return JS.$removeClass(this, thisClass); }
+NodeList.prototype.toggleClass = function(thisClass) { return JS.$toggleClass(this, thisClass); }
 
 Element.prototype.val  = function(newValue)   { if(newValue === undefined) return this.value;                  this.value = newValue;                return this; }
 Element.prototype.data = function(key, value) { if(value === undefined)    return this.dataset[key];           this.dataset[key] = value;            return this; }
