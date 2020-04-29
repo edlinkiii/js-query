@@ -47,14 +47,14 @@ $q().ready(() => {
 
     $secondLi.remove();
 
-    $q().create('p').text('All new element!').insertAfter('#junk').addClass('my-class');
+    $q().create('p').text('All new element!').injectAfter('#junk').addClass('my-class');
 
     $q('#junk').clone().attr('id','moreJunk').appendTo('body').empty();
 
     $qa('#junk li').filter('.blue').forEach((el) => el.removeClass('blue'));
 
     // console.log($qa('#junk > li').after('<li>...</li>').css('color','turquoise'));
-    console.log($q().create('li').text('...').insertAfter('#junk > li').css('color','turquoise'));
+    console.log($q().create('li').text('...').injectAfter('#junk > li').css('color','turquoise'));
 });
 
 $q('ul').on('click', 'li', (e) => e.target.removeClass('red').addClass('blue').toggleClass('bold'));
