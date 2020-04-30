@@ -180,6 +180,96 @@ class JSQuery {
 
     return this;
   }
+  static $text(element, string) {
+    if(!element) return false;
+
+    if(element.length) {
+      if(!string) {
+        return false;
+      }
+
+      element.forEach((el) => {
+        el.textContent = string;
+      });
+    }
+    else {
+      if(!string) {
+        return element.textContent;
+      }
+      else {
+        element.textContent = string;
+      }
+    }
+
+    return element;
+  }
+  text(string) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$text(this.element, string);
+
+    return (string) ? this :  returned;
+  }
+  static $html(element, string) {
+    if(!element) return false;
+
+    if(element.length) {
+      if(!string) {
+        return false;
+      }
+
+      element.forEach((el) => {
+        el.innerHTML = string;
+      });
+    }
+    else {
+      if(!string) {
+        return element.innerHTML;
+      }
+      else {
+        element.innerHTML = string;
+      }
+    }
+
+    return element;
+  }
+  html(string) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$html(this.element, string);
+
+    return (string) ? this :  returned;
+  }
+  static $markup(element, string) {
+    if(!element) return false;
+
+    if(element.length) {
+      if(!string) {
+        return false;
+      }
+
+      element.forEach((el) => {
+        el.outerHTML = string;
+      });
+    }
+    else {
+      if(!string) {
+        return element.outerHTML;
+      }
+      else {
+        element.outerHTML = string;
+      }
+    }
+
+    return element;
+  }
+  markup(string) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$markup(this.element, string);
+
+    return (string) ? this :  returned;
+  }
   static __defaultDisplay(tag) {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
@@ -203,7 +293,11 @@ class JSQuery {
 }
 
 
+Element.prototype.text = function(string) { return JSQuery.$text(this, string); }
+Element.prototype.html = function(string) { return JSQuery.$html(this, string); }
+Element.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
 
-
-
+NodeList.prototype.text = function(string) { return JSQuery.$text(this, string); }
+NodeList.prototype.html = function(string) { return JSQuery.$html(this, string); }
+NodeList.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
 
