@@ -270,6 +270,115 @@ class JSQuery {
 
     return (string) ? this :  returned;
   }
+  static $val(element, value) {
+    if(!element) return false;
+
+    if(element.length) {
+      if(!value) return false;
+
+      element.forEach((el) => {
+        el.value = value;
+      });
+    }
+    else {
+      if(!value) {
+        return element.value;
+      }
+      else {
+        element.value = value;
+      }
+    }
+
+    return element;
+  }
+  static $data(element, key, value) {
+    if(!element) return false;
+    if(!key) return false;
+
+    if(element.length) {
+      if(!value) return false;
+
+      element.forEach((el) => {
+        el.dataset[key] = value;
+      });
+    }
+    else {
+      if(!value) {
+        return element.dataset[key];
+      }
+      else {
+        element.dataset[key] = value;
+      }
+    }
+
+    return element;
+  }
+  static $attr(element, key, value) {
+    if(!element) return false;
+    if(!key) return false;
+
+    if(element.length) {
+      if(!value) return false;
+
+      element.forEach((el) => {
+        el.setAttribute(key, value);
+      });
+    }
+    else {
+      if(!value) {
+        return element.getAttribute(key);
+      }
+      else {
+        element.setAttribute(key, value);
+      }
+    }
+
+    return element;
+  }
+  static $prop(element, key, value) {
+    if(!element) return false;
+    if(!key) return false;
+
+    if(element.length) {
+      if(!value) return false;
+
+      element.forEach((el) => {
+        el[key] = value;
+      });
+    }
+    else {
+      if(!value) {
+        return element[key];
+      }
+      else {
+        element[key] = value;
+      }
+    }
+
+    return element;
+  }
+  static $css(element, key, value) {
+    if(!element) return false;
+    if(!key) return false;
+
+    if(element.length) {
+      if(!value) return false;
+
+      element.forEach((el) => {
+        el.style[this.__camelCase(key)] = value;
+      });
+    }
+    else {
+      if(!value) {
+        return getComputedStyle(element)[key];
+      }
+      else {
+        element.style[this.__camelCase(key)] = value;
+      }
+    }
+
+    return element;
+  }
   static __defaultDisplay(tag) {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
@@ -289,6 +398,9 @@ class JSQuery {
       case "tr": return "table-row";
       case "map": case "output": case "q": default: return "inline";
     }
+  }
+  static __camelCase(string) {
+    return string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase());
   }
 }
 
