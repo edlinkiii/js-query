@@ -185,7 +185,12 @@ class JSQuery {
 
     if(element.length) {
       if(!string) {
-        return false;
+        if(element.length === 1) {
+          return element[0].textContent;
+        }
+        else {
+          return false;
+        }
       }
 
       element.forEach((el) => {
@@ -215,7 +220,12 @@ class JSQuery {
 
     if(element.length) {
       if(!string) {
-        return false;
+        if(element.length === 1) {
+          return element[0].innerHTML;
+        }
+        else {
+          return false;
+        }
       }
 
       element.forEach((el) => {
@@ -245,7 +255,12 @@ class JSQuery {
 
     if(element.length) {
       if(!string) {
-        return false;
+        if(element.length === 1) {
+          return element[0].outerHTML;
+        }
+        else {
+          return false;
+        }
       }
 
       element.forEach((el) => {
@@ -268,10 +283,17 @@ class JSQuery {
 
     let returned = this.constructor.$markup(this.element, string);
 
-    return (string) ? this :  returned;
+    return (string) ? this : returned;
   }
   static $val(element, value) {
-    if(!element) return false;
+    if(!value) {
+      if(element.length === 1) {
+        return element[0].value;
+      }
+      else {
+        return false;
+      }
+    }
 
     if(element.length) {
       if(!value) return false;
@@ -291,12 +313,26 @@ class JSQuery {
 
     return element;
   }
+  val(value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$val(this.element, value);
+
+    return (value) ? this : returned;
+  }
   static $data(element, key, value) {
     if(!element) return false;
     if(!key) return false;
 
     if(element.length) {
-      if(!value) return false;
+      if(!value) {
+        if(element.length === 1) {
+          return element[0].dataset[key];
+        }
+        else {
+          return false;
+        }
+      }
 
       element.forEach((el) => {
         el.dataset[key] = value;
@@ -313,12 +349,26 @@ class JSQuery {
 
     return element;
   }
+  data(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$data(this.element, key, value);
+
+    return (value) ? this : returned;
+  }
   static $attr(element, key, value) {
     if(!element) return false;
     if(!key) return false;
 
     if(element.length) {
-      if(!value) return false;
+      if(!value) {
+        if(element.length === 1) {
+          return element[0].getAttribute(key);
+        }
+        else {
+          return false;
+        }
+      }
 
       element.forEach((el) => {
         el.setAttribute(key, value);
@@ -335,12 +385,26 @@ class JSQuery {
 
     return element;
   }
+  attr(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$attr(this.element, key, value);
+
+    return (value) ? this : returned;
+  }
   static $prop(element, key, value) {
     if(!element) return false;
     if(!key) return false;
 
     if(element.length) {
-      if(!value) return false;
+      if(!value) {
+        if(element.length === 1) {
+          return element[0][key];
+        }
+        else {
+          return false;
+        }
+      }
 
       element.forEach((el) => {
         el[key] = value;
@@ -357,12 +421,26 @@ class JSQuery {
 
     return element;
   }
+  prop(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$prop(this.element, key, value);
+
+    return (value) ? this : returned;
+  }
   static $css(element, key, value) {
     if(!element) return false;
     if(!key) return false;
 
     if(element.length) {
-      if(!value) return false;
+      if(!value) {
+        if(element.length === 1) {
+          return getComputedStyle(element[0])[key];
+        }
+        else {
+          return false;
+        }
+      }
 
       element.forEach((el) => {
         el.style[this.__camelCase(key)] = value;
@@ -378,6 +456,13 @@ class JSQuery {
     }
 
     return element;
+  }
+  css(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$css(this.element, key, value);
+
+    return (value) ? this : returned;
   }
   static __defaultDisplay(tag) {
     if(!tag) return "none";
