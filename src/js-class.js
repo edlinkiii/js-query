@@ -293,11 +293,4 @@ class JSQuery {
 }
 
 
-Element.prototype.text = function(string) { return JSQuery.$text(this, string); }
-Element.prototype.html = function(string) { return JSQuery.$html(this, string); }
-Element.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
-
-NodeList.prototype.text = function(string) { return JSQuery.$text(this, string); }
-NodeList.prototype.html = function(string) { return JSQuery.$html(this, string); }
-NodeList.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
 
