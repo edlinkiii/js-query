@@ -13,18 +13,130 @@ class JSQuery {
   getElement(selector) {
     return (selector === document || selector === 'document' || !selector) ? document : document.querySelectorAll(selector);
   }
-  static $hasClass(element, thisClass) {
-    return element.classList.contains(thisClass);
-  }
   hasClass(thisClass) {
-    if(this.selector) {
-      this.element = this.getElement(this.selector);
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.constructor.$hasClass(this.element, thisClass)
+
+    return this;
+  }
+  addClass(thisClass) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.constructor.$addClass(this.element, thisClass)
+
+    return this;
+  }
+  removeClass(thisClass) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.constructor.$removeClass(this.element, thisClass)
+
+    return this;
+  }
+  toggleClass(thisClass) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.constructor.$toggleClass(this.element, thisClass)
+
+    return this;
+  }
+  hide() {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.displayType = getComputedStyle(this.element[0])['display'];
+
+    this.constructor.$hide(this.element);
+
+    return this;
+  }
+  show(displayType) {
+    if(displayType) {
+      this.displayType = displayType;
     }
-    if(this.element.length) {
-      return this.constructor.$hasClass(this.element[0], thisClass);
+
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.constructor.$show(this.element, this.displayType);
+
+    return this;
+  }
+  toggle(displayType) {
+    if(displayType) {
+      this.displayType = displayType;
+    }
+
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    this.constructor.$toggle(this.element, this.displayType);
+
+    return this;
+  }
+  text(string) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+
+    let returned = this.constructor.$text(this.element, string);
+
+    return (string) ? this :  returned;
+  }
+  html(string) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$html(this.element, string);
+    
+    return (string) ? this :  returned;
+  }
+  markup(string) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$markup(this.element, string);
+    
+    return (string) ? this : returned;
+  }
+  val(value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$val(this.element, value);
+    
+    return (value) ? this : returned;
+  }
+  data(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$data(this.element, key, value);
+    
+    return (value) ? this : returned;
+  }
+  attr(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$attr(this.element, key, value);
+    
+    return (value) ? this : returned;
+  }
+  prop(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$prop(this.element, key, value);
+    
+    return (value) ? this : returned;
+  }
+  css(key, value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$css(this.element, key, value);
+    
+    return (value) ? this : returned;
+  }
+  static $hasClass(element, thisClass) {
+    if(element.length && element.length === 1) {
+      return element[0].classList.contains(thisClass);
+    }
+    if(element.length) {
+      return false;
     }
     else {
-      return this.constructor.$hasClass(this.element, thisClass);
+      return element.classList.contains(thisClass);
     }
   }
   static $addClass(element, thisClass) {
@@ -40,13 +152,6 @@ class JSQuery {
     }
     return element;
   }
-  addClass(thisClass) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    this.constructor.$addClass(this.element, thisClass)
-
-    return this;
-  }
   static $removeClass(element, thisClass) {
     if(!element) return false;
     if(!thisClass) return element;
@@ -59,13 +164,6 @@ class JSQuery {
       element.classList.remove(thisClass);
     }
     return element;
-  }
-  removeClass(thisClass) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    this.constructor.$removeClass(this.element, thisClass)
-
-    return this;
   }
   static $toggleClass(element, thisClass) {
     if(!element) return false;
@@ -85,13 +183,6 @@ class JSQuery {
 
     return element;
   }
-  toggleClass(thisClass) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    this.constructor.$toggleClass(this.element, thisClass)
-
-    return this;
-  }
   static $hide(element) {
     if(!element) return false;
 
@@ -108,15 +199,6 @@ class JSQuery {
     
     return element;
   }
-  hide() {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    this.displayType = getComputedStyle(this.element[0])['display'];
-
-    this.constructor.$hide(this.element);
-
-    return this;
-  }
   static $show(element, displayType) {
     if(!element) return false;
 
@@ -132,17 +214,6 @@ class JSQuery {
     }
 
     return element;
-  }
-  show(displayType) {
-    if(displayType) {
-      this.displayType = displayType;
-    }
-
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    this.constructor.$show(this.element, this.displayType);
-
-    return this;
   }
   static $toggle(element, displayType) {
     if(!element) return false;
@@ -168,17 +239,6 @@ class JSQuery {
     }
 
     return element;
-  }
-  toggle(displayType) {
-    if(displayType) {
-      this.displayType = displayType;
-    }
-
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    this.constructor.$toggle(this.element, this.displayType);
-
-    return this;
   }
   static $text(element, string) {
     if(!element) return false;
@@ -208,13 +268,6 @@ class JSQuery {
 
     return element;
   }
-  text(string) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$text(this.element, string);
-
-    return (string) ? this :  returned;
-  }
   static $html(element, string) {
     if(!element) return false;
 
@@ -242,13 +295,6 @@ class JSQuery {
     }
 
     return element;
-  }
-  html(string) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$html(this.element, string);
-
-    return (string) ? this :  returned;
   }
   static $markup(element, string) {
     if(!element) return false;
@@ -278,13 +324,6 @@ class JSQuery {
 
     return element;
   }
-  markup(string) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$markup(this.element, string);
-
-    return (string) ? this : returned;
-  }
   static $val(element, value) {
     if(!value) {
       if(element.length === 1) {
@@ -312,13 +351,6 @@ class JSQuery {
     }
 
     return element;
-  }
-  val(value) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$val(this.element, value);
-
-    return (value) ? this : returned;
   }
   static $data(element, key, value) {
     if(!element) return false;
@@ -349,13 +381,6 @@ class JSQuery {
 
     return element;
   }
-  data(key, value) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$data(this.element, key, value);
-
-    return (value) ? this : returned;
-  }
   static $attr(element, key, value) {
     if(!element) return false;
     if(!key) return false;
@@ -384,13 +409,6 @@ class JSQuery {
     }
 
     return element;
-  }
-  attr(key, value) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$attr(this.element, key, value);
-
-    return (value) ? this : returned;
   }
   static $prop(element, key, value) {
     if(!element) return false;
@@ -421,13 +439,6 @@ class JSQuery {
 
     return element;
   }
-  prop(key, value) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$prop(this.element, key, value);
-
-    return (value) ? this : returned;
-  }
   static $css(element, key, value) {
     if(!element) return false;
     if(!key) return false;
@@ -456,13 +467,6 @@ class JSQuery {
     }
 
     return element;
-  }
-  css(key, value) {
-    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
-
-    let returned = this.constructor.$css(this.element, key, value);
-
-    return (value) ? this : returned;
   }
   static __defaultDisplay(tag) {
     if(!tag) return "none";
