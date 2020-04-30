@@ -10,6 +10,7 @@ class JSQuery {
       this.element = this.getElement(this.selector);
     }
   }
+  /***** $js() interface methods *****************/
   getElement(selector) {
     return (selector === document || selector === 'document' || !selector) ? document : document.querySelectorAll(selector);
   }
@@ -128,6 +129,15 @@ class JSQuery {
     
     return (value) ? this : returned;
   }
+  /***** extension methods - $js() only! ****************/
+  id(value) {
+    this.element = (this.selector) ? this.getElement(this.selector) : this.element;
+    
+    let returned = this.constructor.$prop(this.element, 'id', value);
+    
+    return (value) ? this : returned;
+  }
+  /***** static methods for vanilla elements ****************/
   static $hasClass(element, thisClass) {
     if(element.length && element.length === 1) {
       return element[0].classList.contains(thisClass);
