@@ -54,8 +54,8 @@ Element.prototype.prependTo    = function(selector) { return JSQuery.$prependTo(
 Element.prototype.injectBefore = function(selector) { return JSQuery.$insertBefore(this, selector); }
 Element.prototype.injectAfter  = function(selector) { return JSQuery.$insertAfter(this, selector); }
 
-Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
-Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
+Element.prototype.xPixels = function(newPx) { return JSQuery.$width(this, newPx); }
+Element.prototype.yPixels = function(newPx) { return JSQuery.$height(this, newPx); }
 
 Element.prototype.hasClass = function(thisClass) { return JSQuery.$hasClass(this, thisClass); }
 

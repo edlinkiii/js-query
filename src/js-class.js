@@ -487,6 +487,20 @@ class JSQuery {
 
     return element;
   }
+  static $width(element, newWidth) {
+    if(newWidth === undefined) return element.offsetWidth;
+
+    element.style.width = (typeof newWidth === 'number') ? newWidth+'px' : newWidth;
+
+    return element;
+  }
+  static $height(element, newHeight) {
+    if(newHeight === undefined) return element.offsetHeight;
+
+    element.style.height = (typeof newHeight === 'number') ? newHeight+'px' : newHeight;
+
+    return element;
+  }
   static $next(element) {
     return element.nextElementSibling;
   }
