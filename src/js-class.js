@@ -138,6 +138,15 @@ class JSQuery {
     return (value) ? this : returned;
   }
   /***** static methods for vanilla elements ****************/
+  static $find(element, selector) {
+    return element.querySelector(selector);
+  }
+  static $findAll(element, selector) {
+    return element.querySelectorAll(selector);
+  }
+  static $filter(element, selector) {
+    return this.__toNodeList(Array.prototype.filter.call(element, (el) => el.matches(selector)));
+  }
   static $hasClass(element, thisClass) {
     if(element.length && element.length === 1) {
       return element[0].classList.contains(thisClass);
@@ -478,6 +487,154 @@ class JSQuery {
 
     return element;
   }
+  static $next(element) {
+    return element.nextElementSibling;
+  }
+  static $prev(element) {
+    return element.previousElementSibling;
+  }
+  static $siblings(element, selector, inclusive=false) {
+    if (typeof selector === "boolean") {
+      inclusive = selector; selector = null;
+    }
+    console.log(selector, inclusive);
+    
+    if(selector && selector !== null) {
+      return this.__toNodeList(Array.prototype.filter.call(element.parentNode.children, (child) => ((!inclusive && child !== element) || (inclusive)) && child.tagName && child.matches(selector)));
+    }
+    return this.__toNodeList(Array.prototype.filter.call(element.parentNode.children, (child) => ((!inclusive && child !== element) || (inclusive)) && child.tagName));
+  }
+  static $kids(element, selector) {
+    if(selector) return this.__toNodeList(Array.prototype.filter.call(element.childNodes, (child) => child.tagName && child.matches(selector))); 
+    return this.__toNodeList(Array.prototype.filter.call(element.childNodes, (child) => child.tagName));
+  }
+  static $firstKid(element) {
+    return Array.prototype.filter.call(element.childNodes, (child) => child.tagName)[0];
+  }
+  static $lastKid(element) {
+    let arr = Array.prototype.filter.call(element.childNodes, (child) => child.tagName);
+    
+    return arr[arr.length-1];
+  }
+  static $parent(element) {
+    return element.parentElement;
+  }
+  static $parents(element, selector) {
+    let array = [];
+    let tagName = '';
+    let parent;
+    
+    while(tagName !== 'HTML') {
+      parent = element.parentNode;
+      
+      if(selector) {
+        if(element.matches(selector)) {
+          array.push(element);
+        }
+      }
+      else {
+        array.push(parent);
+      }
+      
+      tagName = parent.tagName.toUpperCase();
+      
+      element = parent;
+    }
+    
+    return this.__toNodeList(array);
+  }
+  static $closest(element, selector) {
+    if(selector === undefined) return element.parentElement;
+    
+    let tagName = '';
+    let parent;
+    let end = false;
+    
+    while(tagName !== 'HTML' && !end) {
+      parent = element.parentNode;
+      if(parent.matches(selector)) {
+        end = true;
+        
+        return parent;
+      }
+      tagName = parent.tagName.toUpperCase();
+      
+      element = parent;
+    }
+  }
+  static $before(element, object) {
+    if(object === undefined) return;
+
+    if(element.length) {
+      let array = Array.from(element).map((el) => this.$before(el, object));
+      
+      return this.__toNodeList(array);
+    }
+
+    this.__insertAdjacent(element, 'beforebegin', object);
+    
+    return (this.$prev(element)) ? this.$prev(element) : element;
+  }
+  static $prepend(element, object) {
+    if(object === undefined) return;
+
+    if(element.length) {
+      let array = Array.from(element).map((el) => this.$prepend(el, object));
+      
+      return this.__toNodeList(array);
+    }
+
+    this.__insertAdjacent(element, 'afterbegin', object);
+    
+    return (this.$firstKid(element)) ? this.$firstKid(element) : element;
+  }
+  static $append(element, object) {
+    if(object === undefined) return;
+
+    if(element.length) {
+      let array = Array.from(element).map((el) => this.$append(el, object));
+      
+      return this.__toNodeList(array);
+    }
+
+    this.__insertAdjacent(element, 'beforeend', object);
+    
+    return (this.$lastKid(element)) ? this.$lastKid(element) : element;
+  }
+  static $after(element, object) {
+    if(object === undefined) return;
+
+    if(element.length) {
+      let array = Array.from(element).map((el) => this.$after(el, object));
+      
+      return this.__toNodeList(array);
+    }
+
+    this.__insertAdjacent(element, 'afterend', object);
+    
+    return (this.$next(element)) ? this.$next(element) : element;
+  }
+  static $appendTo(element, selector) {
+    let array = Array.from(document.querySelectorAll(selector)).map((el) => this.$append(el, element.clone(true)));
+    
+    return (array.length === 1) ? array[0] : this.__toNodeList(array);
+  }
+  static $prependTo(element, selector) {
+    let array = Array.from(document.querySelectorAll(selector)).map((el) => this.$prepend(el, element.clone(true)));
+    
+    return (array.length === 1) ? array[0] : this.__toNodeList(array);
+  }
+  static $insertBefore(element, selector) {
+    let array = Array.from(document.querySelectorAll(selector)).map((el) => this.$before(el, element.clone(true)));
+    
+    return (array.length === 1) ? array[0] : this.__toNodeList(array);
+  }
+  static $insertAfter(element, selector) {
+    let array = Array.from(document.querySelectorAll(selector)).map((el) => this.$after(el, element.clone(true)));
+    
+    return (array.length === 1) ? array[0] : this.__toNodeList(array);
+  }
+  /***** utility methods *********************/
   static __defaultDisplay(tag) {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
@@ -501,7 +658,33 @@ class JSQuery {
   static __camelCase(string) {
     return string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase());
   }
+  static __buildElementPath(element) {
+    let p = element.parentNode;
+    
+    if(p === document) {
+      return element.tagName;
+    }
+    return this.__buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, element)+1) + ")";
+    // original code by: apsillers @ stackoverflow.com
+  }
+  static __toNodeList(array) {
+    console.log(array)
+    return document.querySelectorAll(array.map((el) => this.__buildElementPath(el)).join(","));
+    // original code by: apsillers @ stackoverflow.com
+  }
+  static __isElement(element) {
+    return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
+  }
+  static __insertAdjacent(element, place, object) {
+    if(this.__isElement(object)) {
+      element.insertAdjacentElement(place, object);
+    }
+    else {
+      element.insertAdjacentHTML(place, object);
+    }
+  }
 }
+
 
 
 

@@ -8,20 +8,20 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
 const $qa = (selector) => document.querySelectorAll(selector);
 const $js = jsQuery = (selector) => new JSQuery({ selector: selector });
 
-Element.prototype.find = function(selector) { return this.querySelector(selector); }
-Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
-NodeList.prototype.filter = function(selector) { return __toNodeList(Array.prototype.filter.call(this, (el) => el.matches(selector))); }
+Element.prototype.find = function(selector) { return JSQuery.$find(this, selector); }
+Element.prototype.findAll = function(selector) { return JSQuery.$findAll(this, selector); }
+NodeList.prototype.filter = function(selector) { return JSQuery.$filter(this, selector); }
 
-Element.prototype.next = function() { return this.nextElementSibling; }
-Element.prototype.prev = function() { return this.previousElementSibling; }
-Element.prototype.siblings = function(selector, inclusive = false) { if (typeof selector === "boolean") { inclusive = selector; selector = null; } console.log(selector, inclusive); if(selector && selector !== null) return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName)); }
-Element.prototype.kids = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName)); }
-Element.prototype.firstKid = function() { return Array.prototype.filter.call(this.childNodes, (child) => child.tagName)[0]; }
-Element.prototype.lastKid = function() { let arr = Array.prototype.filter.call(this.childNodes, (child) => child.tagName); return arr[arr.length-1]; }
-Element.prototype.parent = function() { return this.parentElement; }
-Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __toNodeList(arr); }
-Element.prototype.ancestors = function(selector) { return this.parents(selector); }
-Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
+Element.prototype.next = function() { return JSQuery.$next(this); }
+Element.prototype.prev = function() { return JSQuery.$prev(this); }
+Element.prototype.siblings = function(selector, inclusive = false) { return JSQuery.$siblings(this, selector, inclusive); }
+Element.prototype.kids = function(selector) { return JSQuery.$kids(this, selector); }
+Element.prototype.firstKid = function() { return JSQuery.$firstKid(this); }
+Element.prototype.lastKid = function() { return JSQuery.$lastKid(this); }
+Element.prototype.parent = function() { return JSQuery.$parent(this); }
+Element.prototype.parents = function(selector) { return JSQuery.$parents(this, selector); }
+Element.prototype.ancestors = function(selector) { return JSQuery.$parents(this, selector); }
+Element.prototype.closest = function(selector) { return JSQuery.$closest(this, selector); }
 
 Element.prototype.hide = function() { return JSQuery.$hide(this); }
 Element.prototype.show = function(displayType) { return JSQuery.$show(this, displayType); }
@@ -39,20 +39,20 @@ NodeList.prototype.text = function(string) { return JSQuery.$text(this, string);
 NodeList.prototype.html = function(string) { return JSQuery.$html(this, string); }
 NodeList.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
 
-Element.prototype.before  = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'beforebegin', obj); return (this.prev())     ? this.prev()     : this; }
-Element.prototype.prepend = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'afterbegin', obj);  return (this.firstKid()) ? this.firstKid() : this; }
-Element.prototype.append  = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'beforeend', obj);   return (this.lastKid())  ? this.lastKid()  : this; }
-Element.prototype.after   = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'afterend', obj);    return (this.next())     ? this.next()     : this; }
+Element.prototype.before  = function(obj) { return JSQuery.$before(this, obj); }
+Element.prototype.prepend = function(obj) { return JSQuery.$prepend(this, obj); }
+Element.prototype.append  = function(obj) { return JSQuery.$append(this, obj); }
+Element.prototype.after   = function(obj) { return JSQuery.$after(this, obj); }
 
-NodeList.prototype.before  = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.before(obj));  return __toNodeList(arr); }
-NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.prepend(obj)); return __toNodeList(arr); }
-NodeList.prototype.append  = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.append(obj));  return __toNodeList(arr); }
-NodeList.prototype.after   = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.after(obj));   return __toNodeList(arr); }
+NodeList.prototype.before  = function(obj) { return JSQuery.$before(this, obj); }
+NodeList.prototype.prepend = function(obj) { return JSQuery.$prepend(this, obj); }
+NodeList.prototype.append  = function(obj) { return JSQuery.$append(this, obj); }
+NodeList.prototype.after   = function(obj) { return JSQuery.$after(this, obj); }
 
-Element.prototype.appendTo     = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.append(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
-Element.prototype.prependTo    = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
-Element.prototype.injectBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
-Element.prototype.injectAfter  = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.appendTo     = function(selector) { return JSQuery.$appendTo(this, selector); }
+Element.prototype.prependTo    = function(selector) { return JSQuery.$prependTo(this, selector); }
+Element.prototype.injectBefore = function(selector) { return JSQuery.$insertBefore(this, selector); }
+Element.prototype.injectAfter  = function(selector) { return JSQuery.$insertAfter(this, selector); }
 
 Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
 Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
