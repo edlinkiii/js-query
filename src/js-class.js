@@ -497,7 +497,6 @@ class JSQuery {
     if (typeof selector === "boolean") {
       inclusive = selector; selector = null;
     }
-    console.log(selector, inclusive);
     
     if(selector && selector !== null) {
       return this.__toNodeList(Array.prototype.filter.call(element.parentNode.children, (child) => ((!inclusive && child !== element) || (inclusive)) && child.tagName && child.matches(selector)));
@@ -635,6 +634,33 @@ class JSQuery {
     return (array.length === 1) ? array[0] : this.__toNodeList(array);
   }
   /***** utility methods *********************/
+  static __isElement(element) {
+    return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
+  }
+  static __camelCase(string) {
+    return string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase());
+  }
+  static __insertAdjacent(element, place, object) {
+    if(this.__isElement(object)) {
+      element.insertAdjacentElement(place, object);
+    }
+    else {
+      element.insertAdjacentHTML(place, object);
+    }
+  }
+  static __buildElementPath(element) {
+    let p = element.parentNode;
+    
+    if(p === document) {
+      return element.tagName;
+    }
+    return this.__buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, element)+1) + ")";
+    // original code by: apsillers @ stackoverflow.com
+  }
+  static __toNodeList(array) {
+    return document.querySelectorAll(array.map((el) => this.__buildElementPath(el)).join(","));
+    // original code by: apsillers @ stackoverflow.com
+  }
   static __defaultDisplay(tag) {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
@@ -653,34 +679,6 @@ class JSQuery {
       case "thead": return "table-header-group";
       case "tr": return "table-row";
       case "map": case "output": case "q": default: return "inline";
-    }
-  }
-  static __camelCase(string) {
-    return string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase());
-  }
-  static __buildElementPath(element) {
-    let p = element.parentNode;
-    
-    if(p === document) {
-      return element.tagName;
-    }
-    return this.__buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, element)+1) + ")";
-    // original code by: apsillers @ stackoverflow.com
-  }
-  static __toNodeList(array) {
-    console.log(array)
-    return document.querySelectorAll(array.map((el) => this.__buildElementPath(el)).join(","));
-    // original code by: apsillers @ stackoverflow.com
-  }
-  static __isElement(element) {
-    return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
-  }
-  static __insertAdjacent(element, place, object) {
-    if(this.__isElement(object)) {
-      element.insertAdjacentElement(place, object);
-    }
-    else {
-      element.insertAdjacentHTML(place, object);
     }
   }
 }
