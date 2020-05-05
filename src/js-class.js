@@ -713,6 +713,15 @@ class JSQuery {
     return document.querySelectorAll(array.map((el) => this.__buildElementPath(el)).join(","));
     // original code by: apsillers @ stackoverflow.com
   }
+  static __FPS = 1000 / 60;
+  static __animate = (func) => {
+    if(func()) {
+      setTimeout(() => {
+        __animate(func);
+      },
+      __FPS);
+    }
+  }
   static __defaultDisplay(tag) {
     if(!tag) return "none";
     switch(tag.toLowerCase()) {
