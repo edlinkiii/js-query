@@ -647,6 +647,44 @@ class JSQuery {
     
     return (array.length === 1) ? array[0] : this.__toNodeList(array);
   }
+  static $add(tagName) {
+    return document.createElement(tagName);
+  }
+  static $clone(element, deep=false) {
+    return element.cloneNode(deep);
+  }
+  static $empty(element) {
+    if(element.length) {
+      element.forEach((el) => {
+        el.innerHTML = '';
+      });
+    }
+    else {
+      element.innerHTML = '';
+    }
+
+    return element;
+  }
+  static $remove(element) {
+    if(element.length) {
+      element.forEach((el) => {
+        el.remove();
+      });
+    }
+    else {
+      element.remove();
+    }
+
+    return null;
+  }
+  static $position(element) {
+    return { left: element.offsetLeft, top: element.offsetTop };
+  }
+  static $offset(element) {
+    let rect = element.getBoundingClientRect();
+
+    return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft }
+  }
   /***** utility methods *********************/
   static __isElement(element) {
     return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);

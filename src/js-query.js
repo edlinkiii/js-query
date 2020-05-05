@@ -79,18 +79,18 @@ NodeList.prototype.attr = function(key, value) { return JSQuery.$attr(this, key,
 NodeList.prototype.prop = function(key, value) { return JSQuery.$prop(this, key, value); }
 NodeList.prototype.css = function(key, value) { return JSQuery.$css(this, key, value); }
 
-HTMLDocument.prototype.add = function(tagName) { return document.createElement(tagName); }
-HTMLDocument.prototype.create = function(tagName) { return document.createElement(tagName); }
-Element.prototype.clone = function(deep = false) { let el = this.cloneNode(deep); return el; }
+HTMLDocument.prototype.add = function(tagName) { return JSQuery.$add(tagName); }
+HTMLDocument.prototype.create = function(tagName) { return JSQuery.$add(tagName); }
+Element.prototype.clone = function(deep = false) { return JSQuery.$clone(this, deep); }
 
-Element.prototype.empty = function() { this.innerHTML = ''; return this; }
+Element.prototype.empty = function() { return JSQuery.$empty(this); }
 // Element.remove() // -- ALREADY EXISTS
 
-NodeList.prototype.empty  = function() { this.forEach((n) => n.empty());  return this; }
-NodeList.prototype.remove = function() { this.forEach((n) => n.remove()); return; }
+NodeList.prototype.empty  = function() { return JSQuery.$empty(this); }
+NodeList.prototype.remove = function() { return JSQuery.$remove(this); }
 
-Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
-Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
+Element.prototype.position = function() { return JSQuery.$position(this); }
+Element.prototype.offset   = function() { return JSQuery.$offset(this); }
 
 EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // EventTarget.click() // -- ALREADY EXISTS
