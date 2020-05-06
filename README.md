@@ -9,6 +9,9 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 ## Versions
 ### v1.0
 * First 'official' version
+* Write-up: [My First Release: JS Query](https://dev.to/edlinkiii/my-first-release-1p67)
+### v1.0.1
+* Added .trigger(string)
 
 #### Usage Hints
 ```javascript
