@@ -8,35 +8,36 @@ const $q = (selector) => (selector === document || !selector) ? document : docum
 const $qa = (selector) => document.querySelectorAll(selector);
 const $js = jsQuery = (selector) => new JSQuery({ selector: selector });
 
-Element.prototype.find = function(selector) { return JSQuery.$find(this, selector); }
+Element.prototype.find    = function(selector) { return JSQuery.$find(this, selector); }
 Element.prototype.findAll = function(selector) { return JSQuery.$findAll(this, selector); }
 NodeList.prototype.filter = function(selector) { return JSQuery.$filter(this, selector); }
 
 Element.prototype.next = function() { return JSQuery.$next(this); }
 Element.prototype.prev = function() { return JSQuery.$prev(this); }
-Element.prototype.siblings = function(selector, inclusive = false) { return JSQuery.$siblings(this, selector, inclusive); }
-Element.prototype.kids = function(selector) { return JSQuery.$kids(this, selector); }
-Element.prototype.firstKid = function() { return JSQuery.$firstKid(this); }
-Element.prototype.lastKid = function() { return JSQuery.$lastKid(this); }
-Element.prototype.parent = function() { return JSQuery.$parent(this); }
-Element.prototype.parents = function(selector) { return JSQuery.$parents(this, selector); }
-Element.prototype.ancestors = function(selector) { return JSQuery.$parents(this, selector); }
-Element.prototype.closest = function(selector) { return JSQuery.$closest(this, selector); }
 
-Element.prototype.hide = function() { return JSQuery.$hide(this); }
-Element.prototype.show = function(displayType) { return JSQuery.$show(this, displayType); }
+Element.prototype.siblings  = function(selector, inclusive = false) { return JSQuery.$siblings(this, selector, inclusive); }
+Element.prototype.kids      = function(selector) { return JSQuery.$kids(this, selector); }
+Element.prototype.firstKid  = function() { return JSQuery.$firstKid(this); }
+Element.prototype.lastKid   = function() { return JSQuery.$lastKid(this); }
+Element.prototype.parent    = function() { return JSQuery.$parent(this); }
+Element.prototype.parents   = function(selector) { return JSQuery.$parents(this, selector); }
+Element.prototype.ancestors = function(selector) { return JSQuery.$parents(this, selector); }
+Element.prototype.closest   = function(selector) { return JSQuery.$closest(this, selector); }
+
+Element.prototype.hide   = function() { return JSQuery.$hide(this); }
+Element.prototype.show   = function(displayType) { return JSQuery.$show(this, displayType); }
 Element.prototype.toggle = function(displayType) { return JSQuery.$toggle(this, displayType); }
 
-NodeList.prototype.hide = function() { return JSQuery.$hide(this); }
-NodeList.prototype.show = function(displayType) { return JSQuery.$show(this, displayType); }
+NodeList.prototype.hide   = function() { return JSQuery.$hide(this); }
+NodeList.prototype.show   = function(displayType) { return JSQuery.$show(this, displayType); }
 NodeList.prototype.toggle = function(displayType) { return JSQuery.$toggle(this, displayType); }
 
-Element.prototype.text = function(string) { return JSQuery.$text(this, string); }
-Element.prototype.html = function(string) { return JSQuery.$html(this, string); }
+Element.prototype.text   = function(string) { return JSQuery.$text(this, string); }
+Element.prototype.html   = function(string) { return JSQuery.$html(this, string); }
 Element.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
 
-NodeList.prototype.text = function(string) { return JSQuery.$text(this, string); }
-NodeList.prototype.html = function(string) { return JSQuery.$html(this, string); }
+NodeList.prototype.text   = function(string) { return JSQuery.$text(this, string); }
+NodeList.prototype.html   = function(string) { return JSQuery.$html(this, string); }
 NodeList.prototype.markup = function(string) { return JSQuery.$markup(this, string); }
 
 Element.prototype.before  = function(obj) { return JSQuery.$before(this, obj); }
@@ -59,34 +60,36 @@ Element.prototype.yPixels = function(newPx) { return JSQuery.$height(this, newPx
 
 Element.prototype.hasClass = function(thisClass) { return JSQuery.$hasClass(this, thisClass); }
 
-Element.prototype.addClass = function(thisClass) { return JSQuery.$addClass(this, thisClass); }
+Element.prototype.addClass    = function(thisClass) { return JSQuery.$addClass(this, thisClass); }
 Element.prototype.removeClass = function(thisClass) { return JSQuery.$removeClass(this, thisClass); }
 Element.prototype.toggleClass = function(thisClass) { return JSQuery.$toggleClass(this, thisClass); }
 
-NodeList.prototype.addClass = function(thisClass) { return JSQuery.$addClass(this, thisClass); }
+NodeList.prototype.addClass    = function(thisClass) { return JSQuery.$addClass(this, thisClass); }
 NodeList.prototype.removeClass = function(thisClass) { return JSQuery.$removeClass(this, thisClass); }
 NodeList.prototype.toggleClass = function(thisClass) { return JSQuery.$toggleClass(this, thisClass); }
 
-Element.prototype.val = function(value) { return JSQuery.$val(this, value); }
+Element.prototype.val  = function(value) { return JSQuery.$val(this, value); }
 Element.prototype.data = function(key, value) { return JSQuery.$data(this, key, value); }
 Element.prototype.attr = function(key, value) { return JSQuery.$attr(this, key, value); }
 Element.prototype.prop = function(key, value) { return JSQuery.$prop(this, key, value); }
-Element.prototype.css = function(key, value) { return JSQuery.$css(this, key, value); }
+Element.prototype.css  = function(key, value) { return JSQuery.$css(this, key, value); }
 
-NodeList.prototype.val = function(value) { return JSQuery.$val(this, value); }
+NodeList.prototype.val  = function(value) { return JSQuery.$val(this, value); }
 NodeList.prototype.data = function(key, value) { return JSQuery.$data(this, key, value); }
 NodeList.prototype.attr = function(key, value) { return JSQuery.$attr(this, key, value); }
 NodeList.prototype.prop = function(key, value) { return JSQuery.$prop(this, key, value); }
-NodeList.prototype.css = function(key, value) { return JSQuery.$css(this, key, value); }
+NodeList.prototype.css  = function(key, value) { return JSQuery.$css(this, key, value); }
 
 HTMLDocument.prototype.add = function(tagName) { return JSQuery.$add(tagName); }
+
 HTMLDocument.prototype.create = function(tagName) { return JSQuery.$add(tagName); }
+
 Element.prototype.clone = function(deep = false) { return JSQuery.$clone(this, deep); }
 
-Element.prototype.empty = function() { return JSQuery.$empty(this); }
-// Element.remove() // -- ALREADY EXISTS
+Element.prototype.empty  = function() { return JSQuery.$empty(this); }
+NodeList.prototype.empty = function() { return JSQuery.$empty(this); }
 
-NodeList.prototype.empty  = function() { return JSQuery.$empty(this); }
+// Element.remove() // -- ALREADY EXISTS
 NodeList.prototype.remove = function() { return JSQuery.$remove(this); }
 
 Element.prototype.position = function() { return JSQuery.$position(this); }
