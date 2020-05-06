@@ -95,7 +95,8 @@ NodeList.prototype.remove = function() { return JSQuery.$remove(this); }
 Element.prototype.position = function() { return JSQuery.$position(this); }
 Element.prototype.offset   = function() { return JSQuery.$offset(this); }
 
-EventTarget.prototype.change = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
+EventTarget.prototype.trigger = function(eventType) { return JSQuery.$trigger(this, eventType); }
+EventTarget.prototype.change  = function() { return JSQuery.$trigger(this, 'change'); }
 // EventTarget.click() // -- ALREADY EXISTS
 // EventTarget.focus() // -- ALREADY EXISTS
 // EventTarget.blur() // -- ALREADY EXISTS

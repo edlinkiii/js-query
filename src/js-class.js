@@ -685,6 +685,9 @@ class JSQuery {
 
     return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft }
   }
+  static $trigger(element, eventType) {
+    return element.dispatchEvent(new Event(eventType, { 'bubbles': true }));
+  }
   /***** utility methods *********************/
   static __isElement(element) {
     return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
