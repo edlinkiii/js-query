@@ -1,7 +1,7 @@
 # trigger(string)
 Used to trigger a defined event on a selected element.
 
-### element.trigger(string)
+### element.trigger(eventType)
 Triggers the defined event on the selected element.
 
 ```javascript
