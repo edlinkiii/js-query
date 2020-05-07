@@ -24,6 +24,10 @@ Element.prototype.parents   = function(selector) { return JSQuery.$parents(this,
 Element.prototype.ancestors = function(selector) { return JSQuery.$parents(this, selector); }
 Element.prototype.closest   = function(selector) { return JSQuery.$closest(this, selector); }
 
+Element.prototype.isDescendant = function(element) { return JSQuery.$isDescendant(this, element); }
+Element.prototype.isChild = function(element) { return JSQuery.$isChild(this, element); }
+Element.prototype.isDirectDescendant = function(element) { return JSQuery.$isDirectDescendant(this, element); }
+
 Element.prototype.hide   = function() { return JSQuery.$hide(this); }
 Element.prototype.show   = function(displayType) { return JSQuery.$show(this, displayType); }
 Element.prototype.toggle = function(displayType) { return JSQuery.$toggle(this, displayType); }

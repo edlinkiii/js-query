@@ -575,6 +575,15 @@ class JSQuery {
       element = parent;
     }
   }
+  static $isDescendant(element, parent) {
+    if(!parent) return false; return (parent.contains(element));
+  }
+  static $isDirectDescendant(element, parent) {
+    if(!parent) return false; return (element.parentElement === parent);
+  }
+  static $isChild(element, parent) {
+    if(!parent) return false; return (element.parentElement === parent);
+  }
   static $before(element, object) {
     if(object === undefined) return;
 
