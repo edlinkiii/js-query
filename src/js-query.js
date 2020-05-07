@@ -58,6 +58,9 @@ Element.prototype.prependTo    = function(selector) { let arr = Array.from($qa(s
 Element.prototype.injectBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 Element.prototype.injectAfter  = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
 
+Element.prototype.replace     = function(element) { element.parentNode.replaceChild(this, element); return this; }
+Element.prototype.replaceWith = function(element) { this.parentNode.replaceChild(element, this); return element; }
+
 Element.prototype.xPixels = function(newPx) { if(newPx === undefined) return this.offsetWidth;  if(typeof newPx === 'number') this.style.width  = newPx+'px'; else if(typeof newPx === 'string') this.style.width  = newPx; return this; }
 Element.prototype.yPixels = function(newPx) { if(newPx === undefined) return this.offsetHeight; if(typeof newPx === 'number') this.style.height = newPx+'px'; else if(typeof newPx === 'string') this.style.height = newPx; return this; }
 
