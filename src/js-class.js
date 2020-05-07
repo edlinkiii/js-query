@@ -688,6 +688,9 @@ class JSQuery {
   static $trigger(element, eventType) {
     return element.dispatchEvent(new Event(eventType, { 'bubbles': true }));
   }
+  static $hasClass(element) {
+    return (element === document.activeElement);
+  }
   /***** utility methods *********************/
   static __isElement(element) {
     return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
@@ -746,7 +749,6 @@ class JSQuery {
     }
   }
 }
-
 
 
 
