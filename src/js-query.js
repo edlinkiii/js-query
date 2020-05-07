@@ -21,7 +21,8 @@ Element.prototype.parent = function() { return this.parentElement; }
 Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __toNodeList(arr); }
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
-Element.prototype.isDescendant = function(element) { return (element.contains(this)); }
+Element.prototype.isDescendant = function(element) { if(!element) return false; return (element.contains(this)); }
+Element.prototype.isDirectDescendant = function(element) { if(!element) return false; return (this.parentElement === element); }
 
 Element.prototype.hide   = function() { this.style.display = 'none';                                     return this; }
 Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName);             return this; }
