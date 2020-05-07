@@ -1,7 +1,5 @@
 # JS Query
-
 ### A few little cheats for those trying to become _jQuery_-free.
-
 It's not a very extensive replacement for _jQuery_, just a few things my projects have used the most.
 
 I have nothing against _jQuery_, I have been putting this together while actually learning _real_ "Vanilla" JavaScript. I will continue to add to it as I find use for additions, but probably not just to add them. [Here's an article I wrote about it.](https://dev.to/edlinkiii/refactoring-jquery-2klg)
@@ -12,8 +10,16 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 * Write-up: [My First Release: JS Query](https://dev.to/edlinkiii/my-first-release-1p67)
 ### v1.0.1
 * Added .trigger(eventType)
+### v1.1
+* Added .hasFocus()
+* Added .isDescendant(element)
+* Added .isDirectDescendant(element)
+* Added .isChild(element)
+* Added .isParent(element)
+* Added .replace(element)
+* Added .replaceWith(element)
 
-#### Usage Hints
+## Usage
 ```javascript
 // $('#id').hide(); // jQuery
 $q('#id').hide(); // js-query
