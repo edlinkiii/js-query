@@ -95,6 +95,8 @@ NodeList.prototype.remove = function() { return JSQuery.$remove(this); }
 Element.prototype.position = function() { return JSQuery.$position(this); }
 Element.prototype.offset   = function() { return JSQuery.$offset(this); }
 
+Element.prototype.hasFocus = function() { return JSQuery.$hasClass(this); }
+
 EventTarget.prototype.trigger = function(eventType) { return JSQuery.$trigger(this, eventType); }
 EventTarget.prototype.change  = function() { return JSQuery.$trigger(this, 'change'); }
 // EventTarget.click() // -- ALREADY EXISTS
