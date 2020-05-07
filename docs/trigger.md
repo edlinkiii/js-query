@@ -8,3 +8,5 @@ Triggers the defined event on the selected element.
 // jQuery // $('#target').val('Hello World!').change();
 $q('#target').val('Hello World!').trigger('change');
 ```
+
+##### Added v1.0.1

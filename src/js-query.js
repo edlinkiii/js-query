@@ -1,6 +1,6 @@
 /**
- * js-query -- Vanilla JS shortcuts for recovering jQuery users.
- * 
+ * JS Query -- Vanilla JS shortcuts for recovering jQuery users.
+ * @version 1.1
  * @author Ed Link III.
  */
 
