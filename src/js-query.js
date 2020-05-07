@@ -25,6 +25,7 @@ Element.prototype.closest = function(selector) { if(selector === undefined) retu
 Element.prototype.isDescendant = function(element) { if(!element) return false; return (element.contains(this)); }
 Element.prototype.isDirectDescendant = function(element) { if(!element) return false; return (this.parentElement === element); }
 Element.prototype.isChild = function(element) { if(!element) return false; return (this.parentElement === element); }
+Element.prototype.isParent = function(element) { if(!element) return false; return (element.parentElement === this); }
 
 Element.prototype.hide   = function() { this.style.display = 'none';                                     return this; }
 Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName);             return this; }
