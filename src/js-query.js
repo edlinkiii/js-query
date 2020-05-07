@@ -91,6 +91,8 @@ NodeList.prototype.remove = function() { this.forEach((n) => n.remove()); return
 Element.prototype.position = function() { return { left: this.offsetLeft, top: this.offsetTop }; }
 Element.prototype.offset   = function() { let rect = this.getBoundingClientRect(); return { top: rect.top + document.body.scrollTop, left: rect.left + document.body.scrollLeft } }
 
+Element.prototype.hasFocus = function() { return (this === document.activeElement); }
+
 EventTarget.prototype.trigger = function(eventType) { return this.dispatchEvent(new Event(eventType, { 'bubbles': true })); }
 EventTarget.prototype.change  = function() { return this.dispatchEvent(new Event('change', { 'bubbles': true })); }
 // EventTarget.click() // -- ALREADY EXISTS
