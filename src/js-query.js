@@ -1,6 +1,6 @@
 /**
  * JS Query -- Vanilla JS shortcuts for recovering jQuery users.
- * @version 1.1
+ * @version 1.1.1
  * @author Ed Link III.
  */
 
@@ -22,10 +22,10 @@ Element.prototype.parents = function(selector) { let arr = [], tagName = '', el 
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
-Element.prototype.isDescendant = function(element) { if(!element) return false; return (element.contains(this)); }
-Element.prototype.isDirectDescendant = function(element) { if(!element) return false; return (this.parentElement === element); }
-Element.prototype.isChild = function(element) { if(!element) return false; return (this.parentElement === element); }
-Element.prototype.isParent = function(element) { if(!element) return false; return (element.parentElement === this); }
+Element.prototype.isDescendant = function(element) { return (this !== element && element.contains(this)); }
+Element.prototype.isDirectDescendant = function(element) { return (this.parentElement === element); }
+Element.prototype.isChild = function(element) { return (this.parentElement === element); }
+Element.prototype.isParent = function(element) { return (element.parentElement === this); }
 
 Element.prototype.hide   = function() { this.style.display = 'none';                                     return this; }
 Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName);             return this; }
