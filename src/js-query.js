@@ -109,30 +109,11 @@ EventTarget.prototype.change  = function() { return JSQuery.$trigger(this, 'chan
 
 HTMLDocument.prototype.ready = function(func) { JSQuery.$ready(func); }
 
-HTMLDocument.prototype.on = function(event, selector, func) {
-    if(!this.__events) this.__events = {};
-    if(!this.__events[event]) this.__events[event] = {};
-    if(!this.__events[event][selector]) this.__events[event][selector] = [];
-    this.__events[event][selector].push(func);
-    this.addEventListener(event, JSQuery.__eventHandler, true);
-};
-HTMLDocument.prototype.off = function(event, selector) {
-    if(this.__events) {
-        if(this.__events[event]) {
-            if(this.__events[event][selector]) {
-                delete this.__events[event][selector];
-            }
-        }
-    }
-    this.removeEventListener(event, JSQuery.__eventHandler, true);
-};
+HTMLDocument.prototype.on = function(event, selector, func) { JSQuery.$on(this, event, selector, func); };
+HTMLDocument.prototype.off = function(event, selector) { JSQuery.$off(this, event, selector); };
 
-Element.prototype.on = function(event, selector, func) {
-    HTMLDocument.prototype.on.apply(this, [].slice.call(arguments));
-};
-Element.prototype.off = function(event, selector) {
-    HTMLDocument.prototype.off.apply(this, [].slice.call(arguments));
-};
+Element.prototype.on = function(event, selector, func) { HTMLDocument.prototype.on.apply(this, [].slice.call(arguments)); };
+Element.prototype.off = function(event, selector) { HTMLDocument.prototype.off.apply(this, [].slice.call(arguments)); };
 
 const ajax = (options) => {
     return new Promise((resolve, reject) => {

@@ -704,6 +704,23 @@ class JSQuery {
     if (document.readyState != "loading") func();
     else document.addEventListener("DOMContentLoaded", func);
   }
+  static $on(doc, event, selector, func) {
+    if(!doc.__events) doc.__events = {};
+    if(!doc.__events[event]) doc.__events[event] = {};
+    if(!doc.__events[event][selector]) doc.__events[event][selector] = [];
+    doc.__events[event][selector].push(func);
+    doc.addEventListener(event, JSQuery.__eventHandler, true);
+  }
+  static $off(doc, event, selector) {
+    if(doc.__events) {
+      if(doc.__events[event]) {
+        if(doc.__events[event][selector]) {
+          delete doc.__events[event][selector];
+        }
+      }
+    }
+    doc.removeEventListener(event, JSQuery.__eventHandler, true);
+  }
   /***** utility methods *********************/
   static __isElement(element) {
     return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
