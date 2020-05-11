@@ -1,5 +1,5 @@
 /**
- * js-query -- Vanilla JS shortcuts for recovering jQuery users.
+ * JS Query
  * @version 2.0
  * @author Ed Link III.
  */
@@ -24,9 +24,11 @@ Element.prototype.parents   = function(selector) { return JSQuery.$parents(this,
 Element.prototype.ancestors = function(selector) { return JSQuery.$parents(this, selector); }
 Element.prototype.closest   = function(selector) { return JSQuery.$closest(this, selector); }
 
+Element.prototype.isSelf = function(element) { return JSQuery.isSelf(this, element); }
 Element.prototype.isDescendant = function(element) { return JSQuery.$isDescendant(this, element); }
-Element.prototype.isChild = function(element) { return JSQuery.$isChild(this, element); }
 Element.prototype.isDirectDescendant = function(element) { return JSQuery.$isDirectDescendant(this, element); }
+Element.prototype.isChild = function(element) { return JSQuery.$isChild(this, element); }
+Element.prototype.isParent = function(element) { return JSQuery.isParent(this, element); }
 
 Element.prototype.hide   = function() { return JSQuery.$hide(this); }
 Element.prototype.show   = function(displayType) { return JSQuery.$show(this, displayType); }
@@ -58,6 +60,9 @@ Element.prototype.appendTo     = function(selector) { return JSQuery.$appendTo(t
 Element.prototype.prependTo    = function(selector) { return JSQuery.$prependTo(this, selector); }
 Element.prototype.injectBefore = function(selector) { return JSQuery.$insertBefore(this, selector); }
 Element.prototype.injectAfter  = function(selector) { return JSQuery.$insertAfter(this, selector); }
+
+Element.prototype.replace     = function(element) { return JSQuery.$replace(element, this); }
+Element.prototype.replaceWith = function(element) { return JSQuery.$replace(this, element); }
 
 Element.prototype.xPixels = function(newPx) { return JSQuery.$width(this, newPx); }
 Element.prototype.yPixels = function(newPx) { return JSQuery.$height(this, newPx); }

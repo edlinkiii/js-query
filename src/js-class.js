@@ -575,14 +575,20 @@ class JSQuery {
       element = parent;
     }
   }
+  static $isSelf(element, self) {
+    return (element === self);
+  }
   static $isDescendant(element, parent) {
-    if(!parent) return false; return (parent.contains(element));
+    return (this !== element && element.contains(this));
   }
   static $isDirectDescendant(element, parent) {
-    if(!parent) return false; return (element.parentElement === parent);
+    return (element.parentElement === parent);
   }
   static $isChild(element, parent) {
-    if(!parent) return false; return (element.parentElement === parent);
+    return (element.parentElement === parent);
+  }
+  static $isParent(element, parent) {
+    return (parent.parentElement === element);
   }
   static $before(element, object) {
     if(object === undefined) return;
@@ -655,6 +661,9 @@ class JSQuery {
     let array = Array.from(document.querySelectorAll(selector)).map((el) => this.$after(el, element.clone(true)));
     
     return (array.length === 1) ? array[0] : this.__toNodeList(array);
+  }
+  static $replace(element, newElement) {
+    element.parentNode.replaceChild(newElement, element); return newElement;
   }
   static $add(tagName) {
     return document.createElement(tagName);
