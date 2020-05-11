@@ -107,7 +107,7 @@ EventTarget.prototype.change  = function() { return JSQuery.$trigger(this, 'chan
 // EventTarget.focus() // -- ALREADY EXISTS
 // EventTarget.blur() // -- ALREADY EXISTS
 
-HTMLDocument.prototype.ready = function(func) { if (document.readyState != "loading") func(); else document.addEventListener("DOMContentLoaded", func); }
+HTMLDocument.prototype.ready = function(func) { JSQuery.$ready(func); }
 
 HTMLDocument.prototype.on = function(event, selector, func) {
     if(!this.__events) this.__events = {};

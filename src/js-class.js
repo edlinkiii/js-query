@@ -700,6 +700,10 @@ class JSQuery {
   static $hasClass(element) {
     return (element === document.activeElement);
   }
+  static $ready(func) {
+    if (document.readyState != "loading") func();
+    else document.addEventListener("DOMContentLoaded", func);
+  }
   /***** utility methods *********************/
   static __isElement(element) {
     return (element instanceof Element || element instanceof Element || element instanceof HTMLDocument);
@@ -768,5 +772,4 @@ class JSQuery {
     }
   }
 }
-
 
