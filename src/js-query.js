@@ -1,6 +1,6 @@
 /**
  * js-query -- Vanilla JS shortcuts for recovering jQuery users.
- * 
+ * @version 2.0
  * @author Ed Link III.
  */
 
@@ -107,17 +107,6 @@ EventTarget.prototype.change  = function() { return JSQuery.$trigger(this, 'chan
 // EventTarget.focus() // -- ALREADY EXISTS
 // EventTarget.blur() // -- ALREADY EXISTS
 
-function __eventHandler(e) {
-    for(let selector in this.__events[e.type]) {
-        if(e.target.matches && e.target.matches(selector)) {
-            const callbacks = this.__events[e.type][selector];
-            callbacks.forEach(function (callback) {
-             callback.call(e.target, e) // bind 'event.target' to 'this' in callbacks
-            })
-        }
-    }
-}
-
 HTMLDocument.prototype.ready = function(func) { if (document.readyState != "loading") func(); else document.addEventListener("DOMContentLoaded", func); }
 
 HTMLDocument.prototype.on = function(event, selector, func) {
@@ -125,7 +114,7 @@ HTMLDocument.prototype.on = function(event, selector, func) {
     if(!this.__events[event]) this.__events[event] = {};
     if(!this.__events[event][selector]) this.__events[event][selector] = [];
     this.__events[event][selector].push(func);
-    this.addEventListener(event, __eventHandler, true);
+    this.addEventListener(event, JSQuery.__eventHandler, true);
 };
 HTMLDocument.prototype.off = function(event, selector) {
     if(this.__events) {
@@ -135,7 +124,7 @@ HTMLDocument.prototype.off = function(event, selector) {
             }
         }
     }
-    this.removeEventListener(event, __eventHandler, true);
+    this.removeEventListener(event, JSQuery.__eventHandler, true);
 };
 
 Element.prototype.on = function(event, selector, func) {
@@ -189,32 +178,4 @@ const ajax = (options) => {
             reject(false);
         }
     });
-}
-
-const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
-const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
-const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
-const __buildElementPath = (el) => { let p = el.parentNode; if(p === document) { return el.tagName; }  return __buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, el)+1) + ")"; } // original code by: apsillers @ stackoverflow.com
-const __toNodeList = (arr) => { return document.querySelectorAll(arr.map((el) => __buildElementPath(el)).join(",")); } // original code by: apsillers @ stackoverflow.com
-const __FPS = 1000 / 60;
-const __animate = (func) => { if(func()) { setTimeout(() => { __animate(func); }, __FPS); } }
-const __defaultDisplay = (tag) => {
-    if(!tag) return "none";
-    switch(tag.toLowerCase()) {
-        case "address": case "article": case "aside": case "blockquote": case "body": case "dd": case "details": case "div": case "dl": case "dt": case "fieldset": case "figcaption": case "figure": case "footer": case "form": case "h1": case "h2": case "h3": case "h4": case "h5": case "h6": case "header": case "hr": case "html": case "iframe": case "legend": case "menu": case "nav": case "ol": case "p": case "pre": case "section": case "summary": case "ul": return "block";
-        case "area":case "datalist":case "head":case "link":case "param":case "script":case "style":case "title": return "none";
-        case "img": return "inline-block";
-        case "caption": return "table-caption";
-        case "col": return "table-column";
-        case "colgroup": return "table-column-group";
-        case "li": return "list-item";
-        case "table": return "table";
-        case "tbody": return "table-row-group";
-        case "td": return "table-cell";
-        case "tfoot": return "table-footer-group";
-        case "th": return "table-cell";
-        case "thead": return "table-header-group";
-        case "tr": return "table-row";
-        case "map": case "output": case "q": default: return "inline";
-    }
 }

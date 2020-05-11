@@ -757,7 +757,16 @@ class JSQuery {
       case "map": case "output": case "q": default: return "inline";
     }
   }
+  static __eventHandler(e) {
+    for(let selector in this.__events[e.type]) {
+      if(e.target.matches && e.target.matches(selector)) {
+        const callbacks = this.__events[e.type][selector];
+        callbacks.forEach(function (callback) {
+          callback.call(e.target, e) // bind 'event.target' to 'this' in callbacks
+        })
+      }
+    }
+  }
 }
-
 
 
