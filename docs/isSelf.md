@@ -9,4 +9,4 @@ Returns `true` if the element is the passed element, `false` otherwise.
 event.target.isSelf($q('#container'));
 ```
 
-##### Added v1.1.1
+##### Added v1.1.2

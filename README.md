@@ -18,8 +18,8 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 * Added .isParent(element)
 * Added .replace(element)
 * Added .replaceWith(element)
-### v1.1.1
-* Added .is(element)
+### v1.1.2
+* Added .isSelf(element)
 * Modified .isDescendant() to no longer return true if the element _**is**_ the passed element
 
 ## Usage
