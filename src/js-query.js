@@ -22,7 +22,7 @@ Element.prototype.parents = function(selector) { let arr = [], tagName = '', el 
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
-Element.prototype.is = function(element) { return (this === element); }
+Element.prototype.isSelf = function(element) { return (this === element); }
 Element.prototype.isDescendant = function(element) { return (this !== element && element.contains(this)); }
 Element.prototype.isDirectDescendant = function(element) { return (this.parentElement === element); }
 Element.prototype.isChild = function(element) { return (this.parentElement === element); }
