@@ -23,6 +23,15 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 * Modified .isDescendant() to no longer return true if the element _**is**_ the passed element
 ### v.1.1.2
 * Renamed .is(element) to .isSelf(element)
+### v.1.2.0
+* Added saafety check before implementing each method
+* Added $id()
+* Added $class()
+* Added .hasKids()
+* Added .isVisible()
+* Added .isHidden()
+* Added .hasVal()
+* Removed ajax() --> just use fetch
 
 ## Usage
 ```javascript
@@ -38,4 +47,5 @@ el.html('Hello World').addClass('red').toggleClass('bold');
 ```
 
 #### Caveats
-Unlike jQuery, document.querySelector is **very** strick about beginning an element's id with a letter.
+* Unlike jQuery, document.querySelector is **very** strick about beginning an element's id with a letter.
+* Also, document.querySelector will return null if a match is not found.
