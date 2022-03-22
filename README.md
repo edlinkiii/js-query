@@ -31,6 +31,7 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 * Added .isVisible()
 * Added .isHidden()
 * Added .hasVal()
+* Added param _showAs_ to .show()
 * Removed ajax() --> just use fetch
 
 ## Usage
@@ -44,6 +45,9 @@ let that = $qa('.this-class')[1].find('.that') // js-query
 // Chainable and completely interchangeable with Vanilla JavaScript
 let el = document.getElementById('abc123');
 el.html('Hello World').addClass('red').toggleClass('bold');
+
+// let name = $('#id').attr("name"); // jQuery
+let name = $q('#id').name; // js-query
 ```
 
 #### Caveats
