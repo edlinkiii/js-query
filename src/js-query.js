@@ -58,14 +58,14 @@ Element.prototype.isHidden = function() { return !this.isVisible(); }
 if(typeof Element.hide === 'undefined')
 Element.prototype.hide   = function() { this.style.display = 'none'; return this; }
 if(typeof Element.show === 'undefined')
-Element.prototype.show   = function() { this.style.display = __defaultDisplay(this.tagName); return this; }
+Element.prototype.show   = function(showAs=null) { this.style.display = (showAs) ? showAs : __defaultDisplay(this.tagName); return this; }
 if(typeof Element.toggle === 'undefined')
 Element.prototype.toggle = function() { if(this.style.display !== 'none') this.hide(); else this.show(); return this; }
 
 if(typeof NodeList.hide === 'undefined')
 NodeList.prototype.hide   = function() { this.forEach((n) => n.hide());   return this; }
 if(typeof NodeList.show === 'undefined')
-NodeList.prototype.show   = function() { this.forEach((n) => n.show());   return this; }
+NodeList.prototype.show   = function(showAs=null) { this.forEach((n) => n.show(showAs));   return this; }
 if(typeof NodeList.toggle === 'undefined')
 NodeList.prototype.toggle = function() { this.forEach((n) => n.toggle()); return this; }
 
