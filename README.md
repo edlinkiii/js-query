@@ -21,9 +21,9 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 ### v1.1.1
 * Added .is(element)
 * Modified .isDescendant() to no longer return true if the element _**is**_ the passed element
-### v.1.1.2
+### v1.1.2
 * Renamed .is(element) to .isSelf(element)
-### v.1.2.0
+### v1.2.0
 * Added saafety check before implementing each method
 * Added $id()
 * Added $class()
@@ -33,6 +33,8 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 * Added .hasVal()
 * Added param _showAs_ to .show()
 * Removed ajax() --> just use fetch
+### v1.2.1
+* Added .hasDescendant([selector])
 
 ## Usage
 ```javascript
