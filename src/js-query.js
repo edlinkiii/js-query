@@ -49,6 +49,8 @@ if(typeof Element.isParent === 'undefined')
 Element.prototype.isParent = function(element) { return (element.parentElement === this); }
 if(typeof Element.hasKids === 'undefined')
 Element.prototype.hasKids = function(selector) { if(selector) return !!(Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector)).length); return !!(Array.prototype.filter.call(this.childNodes, (child) => child.tagName).length); }
+if(typeof Element.hasDescendant === 'undefined')
+Element.prototype.hasDescendant = function(selector) { if(selector) return !!this.querySelectorAll(selector).length; return !!(Array.prototype.filter.call(this.childNodes, (child) => child.tagName).length); }
 
 if(typeof Element.isVisible === 'undefined')
 Element.prototype.isVisible = function() { return !!( this.offsetWidth || this.offsetHeight || this.getClientRects().length); }
