@@ -35,6 +35,8 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 * Removed ajax() --> just use fetch
 ### v1.2.1
 * Added .hasDescendant([selector])
+### v1.2.2
+* Updated saafety check before implementing each method
 
 ## Usage
 ```javascript
