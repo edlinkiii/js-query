@@ -24,7 +24,7 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 ### v1.1.2
 * Renamed .is(element) to .isSelf(element)
 ### v1.2.0
-* Added saafety check before implementing each method
+* Added safety check before implementing each method
 * Added $id()
 * Added $class()
 * Added .hasKids()
@@ -36,7 +36,7 @@ I have nothing against _jQuery_, I have been putting this together while actuall
 ### v1.2.1
 * Added .hasDescendant([selector])
 ### v1.2.2
-* Updated saafety check before implementing each method
+* Updated safety check before implementing each method
 
 ## Usage
 ```javascript
