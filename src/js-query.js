@@ -1,13 +1,14 @@
 /**
 * JS Query -- Vanilla JS shortcuts for recovering jQuery users.
-* @version 1.2.2
+* @version 1.2.3
 * @author Ed Link III.
 */
 
-const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
-const $qa = (selector) => document.querySelectorAll(selector);
-const $id = (id) => document.getElementById(id);
-const $class = (classes) => document.getElementsByClassName(classes);
+// refactored a la bling.js
+window.$q = document.querySelector.bind(document);
+window.$qa = document.querySelectorAll.bind(document);
+// const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
+// const $qa = (selector) => document.querySelectorAll(selector);
 
 if(typeof Element.find === 'undefined' && typeof Element.prototype.find === 'undefined')
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
@@ -60,7 +61,7 @@ Element.prototype.isHidden = function() { return !this.isVisible(); }
 if(typeof Element.hide === 'undefined' && typeof Element.prototype.hide === 'undefined')
 Element.prototype.hide   = function() { this.style.display = 'none'; return this; }
 if(typeof Element.show === 'undefined' && typeof Element.prototype.show === 'undefined')
-Element.prototype.show   = function(showAs=null) { this.style.display = (showAs) ? showAs : __defaultDisplay(this.tagName); return this; }
+Element.prototype.show   = function(showAs=null) { this.style.display = (showAs) ? showAs : ''; return this; }
 if(typeof Element.toggle === 'undefined' && typeof Element.prototype.toggle === 'undefined')
 Element.prototype.toggle = function() { if(this.style.display !== 'none') this.hide(); else this.show(); return this; }
 
@@ -248,23 +249,3 @@ const __buildElementPath = (el) => { let p = el.parentNode; if(p === document) {
 const __toNodeList = (arr) => { return document.querySelectorAll(arr.map((el) => __buildElementPath(el)).join(",")); } // original code by: apsillers @ stackoverflow.com
 const __FPS = 1000 / 60;
 const __animate = (func) => { if(func()) { setTimeout(() => { __animate(func); }, __FPS); } }
-const __defaultDisplay = (tag) => {
-    if(!tag) return "none";
-    switch(tag.toLowerCase()) {
-        case "address": case "article": case "aside": case "blockquote": case "body": case "dd": case "details": case "div": case "dl": case "dt": case "fieldset": case "figcaption": case "figure": case "footer": case "form": case "h1": case "h2": case "h3": case "h4": case "h5": case "h6": case "header": case "hr": case "html": case "iframe": case "legend": case "menu": case "nav": case "ol": case "p": case "pre": case "section": case "summary": case "ul": return "block";
-        case "area":case "datalist":case "head":case "link":case "param":case "script":case "style":case "title": return "none";
-        case "img": return "inline-block";
-        case "caption": return "table-caption";
-        case "col": return "table-column";
-        case "colgroup": return "table-column-group";
-        case "li": return "list-item";
-        case "table": return "table";
-        case "tbody": return "table-row-group";
-        case "td": return "table-cell";
-        case "tfoot": return "table-footer-group";
-        case "th": return "table-cell";
-        case "thead": return "table-header-group";
-        case "tr": return "table-row";
-        case "map": case "output": case "q": default: return "inline";
-    }
-}
