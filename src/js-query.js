@@ -7,24 +7,25 @@
 // refactored a la bling.js
 window.$q = document.querySelector.bind(document);
 window.$qa = document.querySelectorAll.bind(document);
-// const $q = (selector) => (selector === document || !selector) ? document : document.querySelector(selector);
-// const $qa = (selector) => document.querySelectorAll(selector);
+
+// _borrowed_ from bling.js - will make things easier than I was currently doing them!
+NodeList.prototype.__proto__ = Array.prototype;
 
 if(typeof Element.find === 'undefined' && typeof Element.prototype.find === 'undefined')
 Element.prototype.find = function(selector) { return this.querySelector(selector); }
 if(typeof Element.findAll === 'undefined' && typeof Element.prototype.findAll === 'undefined')
 Element.prototype.findAll = function(selector) { return this.querySelectorAll(selector); }
 if(typeof NodeList.filter === 'undefined' && typeof NodeList.prototype.filter === 'undefined')
-NodeList.prototype.filter = function(selector) { return __toNodeList(Array.prototype.filter.call(this, (el) => el.matches(selector))); }
+NodeList.prototype.filter = function(selector) { return this.filter((el) => el.matches(selector)); }
 
 if(typeof Element.next === 'undefined' && typeof Element.prototype.next === 'undefined')
 Element.prototype.next = function() { return this.nextElementSibling; }
 if(typeof Element.prev === 'undefined' && typeof Element.prototype.prev === 'undefined')
 Element.prototype.prev = function() { return this.previousElementSibling; }
 if(typeof Element.siblings === 'undefined' && typeof Element.prototype.siblings === 'undefined')
-Element.prototype.siblings = function(selector, inclusive = false) { if (typeof selector === "boolean") { inclusive = selector; selector = null; } console.log(selector, inclusive); if(selector && selector !== null) return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.parentNode.children, (child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName)); }
+Element.prototype.siblings = function(selector, inclusive = false) { if (typeof selector === "boolean") { inclusive = selector; selector = null; } if(selector && selector !== null) return this.parentNode.children.filter((child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName && child.matches(selector)); return this.parentNode.children.filter((child) => ((!inclusive && child !== this) || (inclusive)) && child.tagName); }
 if(typeof Element.kids === 'undefined' && typeof Element.prototype.kids === 'undefined')
-Element.prototype.kids = function(selector) { if(selector) return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName && child.matches(selector))); return __toNodeList(Array.prototype.filter.call(this.childNodes, (child) => child.tagName)); }
+Element.prototype.kids = function(selector) { if(selector) return this.childNodes.filter((child) => child.tagName && child.matches(selector)); return this.childNodes.filter((child) => child.tagName); }
 if(typeof Element.firstKid === 'undefined' && typeof Element.prototype.firstKid === 'undefined')
 Element.prototype.firstKid = function() { return Array.prototype.filter.call(this.childNodes, (child) => child.tagName)[0]; }
 if(typeof Element.lastKid === 'undefined' && typeof Element.prototype.lastKid === 'undefined')
@@ -32,7 +33,7 @@ Element.prototype.lastKid = function() { let arr = Array.prototype.filter.call(t
 if(typeof Element.parent === 'undefined' && typeof Element.prototype.parent === 'undefined')
 Element.prototype.parent = function() { return this.parentElement; }
 if(typeof Element.parents === 'undefined' && typeof Element.prototype.parents === 'undefined')
-Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __toNodeList(arr); }
+Element.prototype.parents = function(selector) { let arr = [], tagName = '', el = this, p; while(tagName !== 'HTML') { p = el.parentNode; if(selector) { if(el.matches(selector)) { arr.push(el); }} else { arr.push(p); } tagName = p.tagName.toUpperCase(); el = p; } return __arrayToNodeList(arr); }
 if(typeof Element.ancestors === 'undefined' && typeof Element.prototype.ancestors === 'undefined')
 Element.prototype.ancestors = function(selector) { return this.parents(selector); }
 if(typeof Element.closest === 'undefined' && typeof Element.prototype.closest === 'undefined')
@@ -96,22 +97,22 @@ if(typeof Element.after === 'undefined' && typeof Element.prototype.after === 'u
 Element.prototype.after   = function(obj) { if(obj === undefined) return; __insertAdjacent(this, 'afterend', obj);    return (this.next())     ? this.next()     : this; }
 
 if(typeof NodeList.before === 'undefined' && typeof NodeList.prototype.before === 'undefined')
-NodeList.prototype.before = function(obj)  { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.before(obj));  return __toNodeList(arr); }
+NodeList.prototype.before = function(obj)  { if(obj === undefined) return; this.forEach((n) => n.before(obj));  return this; }
 if(typeof NodeList.prepend === 'undefined' && typeof NodeList.prototype.prepend === 'undefined')
-NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.prepend(obj)); return __toNodeList(arr); }
+NodeList.prototype.prepend = function(obj) { if(obj === undefined) return; this.forEach((n) => n.prepend(obj)); return this; }
 if(typeof NodeList.append === 'undefined' && typeof NodeList.prototype.append === 'undefined')
-NodeList.prototype.append = function(obj)  { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.append(obj));  return __toNodeList(arr); }
+NodeList.prototype.append = function(obj)  { if(obj === undefined) return; this.forEach((n) => n.append(obj));  return this; }
 if(typeof NodeList.after === 'undefined' && typeof NodeList.prototype.after === 'undefined')
-NodeList.prototype.after = function(obj)   { if(obj === undefined) return; let arr = Array.from(this).map((n) => n.after(obj));   return __toNodeList(arr); }
+NodeList.prototype.after = function(obj)   { if(obj === undefined) return; this.forEach((n) => n.after(obj));   return this; }
 
 if(typeof Element.appendTo === 'undefined' && typeof Element.prototype.appendTo === 'undefined')
-Element.prototype.appendTo = function(selector)     { let arr = Array.from($qa(selector)).map((n) => n.append(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.appendTo = function(selector)     { let arr = $qa(selector).map((n) => n.append(this.clone(true)));  return (arr.length === 1) ? arr[0] : __arrayToNodeList(arr); }
 if(typeof Element.prependTo === 'undefined' && typeof Element.prototype.prependTo === 'undefined')
-Element.prototype.prependTo = function(selector)    { let arr = Array.from($qa(selector)).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.prependTo = function(selector)    { let arr = $qa(selector).map((n) => n.prepend(this.clone(true))); return (arr.length === 1) ? arr[0] : __arrayToNodeList(arr); }
 if(typeof Element.injectBefore === 'undefined' && typeof Element.prototype.injectBefore === 'undefined')
-Element.prototype.injectBefore = function(selector) { let arr = Array.from($qa(selector)).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.injectBefore = function(selector) { let arr = $qa(selector).map((n) => n.before(this.clone(true)));  return (arr.length === 1) ? arr[0] : __arrayToNodeList(arr); }
 if(typeof Element.injectAfter === 'undefined' && typeof Element.prototype.injectAfter === 'undefined')
-Element.prototype.injectAfter = function(selector)  { let arr = Array.from($qa(selector)).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __toNodeList(arr); }
+Element.prototype.injectAfter = function(selector)  { let arr = $qa(selector).map((n) => n.after(this.clone(true)));   return (arr.length === 1) ? arr[0] : __arrayToNodeList(arr); }
 
 if(typeof Element.replace === 'undefined' && typeof Element.prototype.replace === 'undefined')
 Element.prototype.replace = function(element) { element.parentNode.replaceChild(this, element); return this; }
@@ -240,12 +241,8 @@ Element.prototype.off = function(event, selector) {
     HTMLDocument.prototype.off.apply(this, [].slice.call(arguments));
 };
 
-// const ajax = (options) => {} // removed
-
 const __isElement = (element) => (element instanceof Element || element instanceof Element || element instanceof HTMLDocument)
 const __camelCase = (string) => string.toLowerCase().replace(/-./g, c => c. substring(1).toUpperCase())
 const __insertAdjacent = (el, place, obj) => { if(__isElement(obj)) el.insertAdjacentElement(place, obj); else el.insertAdjacentHTML(place, obj); }
 const __buildElementPath = (el) => { let p = el.parentNode; if(p === document) { return el.tagName; }  return __buildElementPath(p) + " > :nth-child(" + (Array.prototype.indexOf.call(p.children, el)+1) + ")"; } // original code by: apsillers @ stackoverflow.com
-const __toNodeList = (arr) => { return document.querySelectorAll(arr.map((el) => __buildElementPath(el)).join(",")); } // original code by: apsillers @ stackoverflow.com
-const __FPS = 1000 / 60;
-const __animate = (func) => { if(func()) { setTimeout(() => { __animate(func); }, __FPS); } }
+const __arrayToNodeList = (arr) => { return document.querySelectorAll(arr.map((el) => __buildElementPath(el)).join(",")); } // original code by: apsillers @ stackoverflow.com
