@@ -39,6 +39,8 @@ Element.prototype.ancestors = function(selector) { return this.parents(selector)
 if(typeof Element.closest === 'undefined' && typeof Element.prototype.closest === 'undefined')
 Element.prototype.closest = function(selector) { if(selector === undefined) return this.parentElement; let tagName = '', el = this, p, end = false; while(tagName !== 'HTML' && !end) { p = el.parentNode; if(p.matches(selector)) { end = true; return p; } tagName = p.tagName.toUpperCase(); el = p; } }
 
+if(typeof Element.is === 'undefined' && typeof Element.prototype.is === 'undefined')
+Element.prototype.is = function(selector) { return this.matches(selector); }
 if(typeof Element.isSelf === 'undefined' && typeof Element.prototype.isSelf === 'undefined')
 Element.prototype.isSelf = function(element) { return (this === element); }
 if(typeof Element.isDescendant === 'undefined' && typeof Element.prototype.isDescendant === 'undefined')
