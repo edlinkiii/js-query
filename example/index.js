@@ -51,9 +51,8 @@ $q().ready(() => {
 
     $q('#junk').clone().attr('id','moreJunk').appendTo('body').empty();
 
-    $qa('#junk li').filter('.blue').forEach((el) => el.removeClass('blue'));
+    $qa('#junk li').filterNodes('.blue').forEach((el) => el.removeClass('blue'));
 
-    // console.log($qa('#junk > li').after('<li>...</li>').css('color','turquoise'));
     console.log($q().create('li').text('...').injectAfter('#junk > li').css('color','turquoise'));
 });
 
